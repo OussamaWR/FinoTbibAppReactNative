@@ -26,7 +26,7 @@ export default function App() {
     </View>
   );
 }
-
+// Oussama test 
 const styles = StyleSheet.create({
  
 
