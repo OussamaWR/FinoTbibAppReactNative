@@ -50,11 +50,11 @@ const LocationScreen = () => {
                         * The path template of the locally stored tiles. The patterns {x} {y} {z} will be replaced at runtime
                         * For example, /storage/emulated/0/mytiles/{z}/{x}/{y}.png
                         */
-                    pathTemplate={this.state.pathTemplate}
+                         pathTemplate={this.state.pathTemplate}
                     /**
                         * The size of provided local tiles (usually 256 or 512).
                         */
-                    tileSize={256}
+                            tileSize={256}
                     />
 
                
