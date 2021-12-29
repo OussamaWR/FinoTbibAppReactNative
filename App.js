@@ -12,6 +12,8 @@ import LocationScreen from './src/screens/MapsScreen/LocationScreen';
 import TestImag from './src/screens/testImage/TestImag';
 export default function App() {
  
+  //tkhrbi0a ous 2
+
   return (
     <View  style={styles.root}>
       {/* <TestImag></TestImag> */}
