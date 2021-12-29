@@ -63,6 +63,23 @@ const LocationScreen = () => {
                 followsUserLocation={true}
                 rotateEnabled={true}
                 zoomEnabled={true}
+<<<<<<< HEAD
+                toolbarEnabled={true}
+                // initialRegion={{
+                // latitude: 37.78825,
+                // longitude: -122.4324,
+                // latitudeDelta: 0.0922,
+                // longitudeDelta: 0.0421,
+                // }}
+              >
+            
+
+               
+                    <Marker
+                coordinate={{latitude:37.8025259, longitude:-122.4351431}}
+                // image={{uri:"https://picsum.photos/200"}}
+                // style={{height:10,width:10}}
+=======
                 // toolbarEnabled={true}
                 initialRegion={curentPosition}
             >
@@ -72,6 +89,7 @@ const LocationScreen = () => {
                     coordinate={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
                 // image={{uri:"test"}}
 
+>>>>>>> de092a09bae6c33a00b4feef5d3bd16bff8fbe80
                 >
 
                     <Callout style={{ height: 100, width: 100 }}
