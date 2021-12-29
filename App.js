@@ -27,6 +27,8 @@ export default function App() {
   );
 }
 
+//mouad comment
+
 const styles = StyleSheet.create({
  
 
