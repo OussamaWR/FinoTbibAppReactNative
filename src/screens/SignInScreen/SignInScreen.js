@@ -37,7 +37,7 @@ const SignInScreen = () => {
         <View style={styles.root}>
          
           <Image
-                 source={require('C:/Users/oussa/Desktop/ReactNative/FinoTbib/assets/images/logo1.png') } 
+                 source={require('../../../assets/images/logo1.png') } 
                 style={styles.logo,{height : height*0.15 , marginTop : 20}} 
                 resizeMode='contain'
 

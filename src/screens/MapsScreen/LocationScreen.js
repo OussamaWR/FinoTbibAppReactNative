@@ -14,7 +14,7 @@ const initalState = {
 };
 
 const LocationScreen = () => {
-
+    const [curentPosition, setCurentPosition] = useState(initalState);
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
             //   alert(JSON.stringify(position))
@@ -33,7 +33,7 @@ const LocationScreen = () => {
     }, [])
 
 
-    const [curentPosition, setCurentPosition] = useState(initalState);
+ 
 
 
     return curentPosition.latitude ? (
@@ -91,9 +91,6 @@ const LocationScreen = () => {
                             
                         
                     </Callout>
-
-
-
                 </Marker>
 
                 <Circle
@@ -111,7 +108,7 @@ const LocationScreen = () => {
             </View>
 
         </View>
-    ) : <ActivityIndicator style={{ flex: 1 }} animating size="large" />
+    ) : <ActivityIndicator style={{ flex: 1}} animating size="large" />
 }
 
     export default LocationScreen
