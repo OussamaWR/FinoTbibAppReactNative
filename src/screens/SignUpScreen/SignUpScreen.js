@@ -14,7 +14,7 @@ const SignUpScreen = () => {
     const [passwordRepeat, setPasswordRepeat] = useState('');
 
     const onRegisterPressed = () => {
-        if (fullname == '' || username == '' || email == '' || password == '' || passwordRepeat == '') {
+        if (fullname == '' || username == '' || password == '' || passwordRepeat == '') {
             Alert.alert('Error', 'you should fill all fields !')
         } else if (password !== passwordRepeat) {
             Alert.alert('Password Error', 'Passwords must be equals !')
@@ -40,12 +40,17 @@ const SignUpScreen = () => {
                     body: JSON.stringify(data)
                 }
             )
-                .then( () => {
-                    Alert.alert('Success', 'Acount created successfuly !')
-                    setFullname('') 
-                    setUsername('')
-                    setPassword('')
-                    setPasswordRepeat('')
+                .then(res=>res.text())
+                .then((txt) => {
+                    if(txt==='Account created successfully !'){
+                        Alert.alert('Success', txt)
+                        setFullname('')
+                        setUsername('')
+                        setPassword('')
+                        setPasswordRepeat('')
+                    }else{
+                        Alert.alert('Error', txt)
+                    }
                 })
                 .catch(err => {
                     console.log(err)
@@ -76,20 +81,19 @@ const SignUpScreen = () => {
                         placeholder="Fullname"
                         value={fullname}
                         setValue={setFullname}
-                    /> 
+                    />
 
                     <CustomInput
                         secureTextEntry={false}
                         placeholder="Email"
                         value={username}
                         setValue={setUsername}
-                    /> 
+                    />
                     <CustomInput
                         secureTextEntry={true}
                         placeholder="Password"
                         value={password}
                         setValue={setPassword}
-
                     />
                     <CustomInput
                         secureTextEntry={true}

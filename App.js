@@ -12,7 +12,7 @@ import LocationScreen from './src/screens/MapsScreen/LocationScreen';
 import TestImag from './src/screens/testImage/TestImag';
 export default function App() {
  
-  //tkhrbi0a ous 2
+
 
   return (
     <View  style={styles.root}>
@@ -28,16 +28,10 @@ export default function App() {
     </View>
   );
 }
-// Oussama test 
 const styles = StyleSheet.create({
  
-
-
   root:{
     flex:1,
-    // backgroundColor :'#56ADE7',
     width:"100%"
-    
-    
   },
 });
