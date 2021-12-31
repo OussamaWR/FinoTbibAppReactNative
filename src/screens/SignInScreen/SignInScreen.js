@@ -3,7 +3,6 @@ import { View, Text, Image, Alert, StyleSheet, useWindowDimensions, ScrollView }
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import { findHostInstance_DEPRECATED } from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
 
 
 const SignInScreen = () => {
@@ -43,8 +42,8 @@ const SignInScreen = () => {
             )
                 // .then( (Response) => Alert.alert('Response',JSON.stringify(Response.json())))
                 .then( Response => Response.text() )
-                .then((res) => {
-                    if (res === "Login succesfully !") {
+                .then((Response) => {
+                    if (Response === "Login succesfully !") {
                         setUsername('')
                         setPassword('')
                         Navigation.navigate("Home")
@@ -71,12 +70,11 @@ const SignInScreen = () => {
         <ScrollView style={{ backgroundColor: "white" }}>
             <View style={styles.root}>
 
-                {/* <Image
-                 source={require('C:/Users/Pc/Desktop/Projects/React-Native/FinoTbibAppReactNative/assets/images/logo1.png') } 
+             <Image
+                 source={require('../../../assets/images/logo1.png') } 
                 style={styles.logo,{height : height*0.15 , marginTop : 20}} 
                 resizeMode='contain'
-
-                />  */}
+                />  
                 <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', paddingTop: 3 }} > FinoTbib </Text>
                 <View style={styles.test}>
                     <View style={styles.test1}>
