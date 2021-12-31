@@ -13,7 +13,7 @@ const CustomInput = ({value,setValue,placeholder,secureTextEntry}) => {
            secureTextEntry={secureTextEntry}
             
            />
-        </View>
+        </View> 
     )
 }
 const styles =StyleSheet.create({
