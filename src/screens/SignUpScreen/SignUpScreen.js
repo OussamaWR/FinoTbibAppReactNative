@@ -9,12 +9,12 @@ const SignUpScreen = () => {
 
     const navigation = useNavigation();
     const [fullname, setFullname] = useState('');
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
 
     const onRegisterPressed = () => {
-        if (fullname == '' || username == '' || password == '' || passwordRepeat == '') {
+        if (fullname == '' || email == '' || password == '' || passwordRepeat == '') {
             Alert.alert('Error', 'you should fill all fields !')
         } else if (password !== passwordRepeat) {
             Alert.alert('Password Error', 'Passwords must be equals !')
@@ -25,17 +25,17 @@ const SignUpScreen = () => {
             }
             let data = {
                 fullname: fullname,
-                username: username,
+                email: email,
                 password: password
             }
 
-            
+             
 
             fetch(
                 //'http://10.0.2.2:80/mobile-api/createAccount.php',
                 'http://192.168.1.112:80/mobile-api/createAccount.php',
                 {
-                    method: 'POST',
+                    method: 'POST', 
                     headers: headers,
                     body: JSON.stringify(data)
                 }
@@ -45,8 +45,8 @@ const SignUpScreen = () => {
                     if(txt==='Account created successfully !'){
                         Alert.alert('Success', txt)
                         setFullname('')
-                        setUsername('')
-                        setPassword('')
+                        setEmail('')
+                        setPassword('') 
                         setPasswordRepeat('')
                     }else{
                         Alert.alert('Error', txt)
@@ -86,8 +86,8 @@ const SignUpScreen = () => {
                     <CustomInput
                         secureTextEntry={false}
                         placeholder="Email"
-                        value={username}
-                        setValue={setUsername}
+                        value={email}
+                        setValue={setEmail}
                     />
                     <CustomInput
                         secureTextEntry={true}

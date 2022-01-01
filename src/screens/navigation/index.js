@@ -11,10 +11,9 @@
    import LocationScreen from '../MapsScreen/LocationScreen';
    import index from '../HomeScreen'; 
     
-    const Stack = createNativeStackNavigator();
+    const Stack = createNativeStackNavigator(); 
     const Navigation = () => {
         return (
-         
             <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
                 <Stack.Screen name="SignIn" component={SignInScreen} />
@@ -25,7 +24,6 @@
                 <Stack.Screen name="Home" component={index} />
                 <Stack.Screen name="SignUpBis" component={SignUpBusinessScreen} />
                 <Stack.Screen  name="Localisation" component={LocationScreen} />
-               
             </Stack.Navigator>
             </NavigationContainer>
         )
