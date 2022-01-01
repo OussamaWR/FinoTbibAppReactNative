@@ -1,8 +1,8 @@
 <?php
 require_once('config.php');
-$login = $DecodedData['username'];
+$email = $DecodedData['email'];
 $pwd = $DecodedData['password'];
-$Requete = "SELECT * from users where username='$login' and password=MD5('$pwd')";
+$Requete = "SELECT * from users where email='$email' and password=MD5('$pwd')";
 $Resultat = $pdo->query($Requete);
 if ($user = $Resultat->fetch()) {
     $Message = 'Login succesfully !';

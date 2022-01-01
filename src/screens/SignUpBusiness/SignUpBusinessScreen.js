@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, ScrollView, TextInput, Alert } from 'react-native'
+=======
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, Alert, View, ScrollView, TextInput } from 'react-native'
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
 import { Picker } from '@react-native-picker/picker';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-// import { auth } from '../../../firebase';
+
 
 const SignUpBusinessScreen = () => {
     const [selectedValue, setSelectedValue] = useState("");
@@ -15,10 +20,27 @@ const SignUpBusinessScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
+<<<<<<< HEAD
 
 
     const onRegisterPressed = () => {
         console.warn("eeeeeeeee",phone);
+=======
+    const [specialities, setSpecialities] = useState([]);
+
+    useEffect(() => {
+        fetch(
+            'http://192.168.1.112:80/mobile-api/getSpecialities.php',
+        ).then(res => res.text())
+            .then(res => {
+                setSpecialities(res.split(','))
+            })
+            .catch(err=>console.log())
+    }, [])
+
+
+    const onRegisterPressed = () => {
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
         if (fullname == '' || email == '' || password == '' || passwordRepeat == '' || phone == '') {
             Alert.alert('Error', 'you should fill all fields !')
         } else if (password !== passwordRepeat) {
@@ -33,6 +55,7 @@ const SignUpBusinessScreen = () => {
                 email: email,
                 phone: phone,
                 password: password
+<<<<<<< HEAD
                
 
             }
@@ -43,6 +66,13 @@ const SignUpBusinessScreen = () => {
                 //'http://10.0.2.2:80/mobile-api/createAccount.php',
                 //'http://192.168.1.112:80/mobile-api/createAccount.php',
                 'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
+=======
+            }
+            fetch(
+                //'http://10.0.2.2:80/mobile-api/createAccount.php',
+                'http://192.168.1.112:80/mobile-api/createBisAccount.php',
+                //'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                 {
                     method: 'POST',
                     headers: headers,
@@ -57,7 +87,10 @@ const SignUpBusinessScreen = () => {
                         setEmail('')
                         setPhone()
                         setPassword('')
+<<<<<<< HEAD
                        
+=======
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                         setPasswordRepeat('')
                     } else {
                         Alert.alert('Error', txt)
@@ -67,11 +100,16 @@ const SignUpBusinessScreen = () => {
                     console.log(err)
                 })
         }
+<<<<<<< HEAD
 
 
 
         navigation.navigate("Localisation");
     }
+=======
+    }
+
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
     const Terms = () => {
         console.warn("Terms the use");
     }
@@ -95,7 +133,11 @@ const SignUpBusinessScreen = () => {
                     <View style={styles.test1}>
                         <CustomInput
                             secureTextEntry={false}
+<<<<<<< HEAD
                             placeholder="Full Name"
+=======
+                            placeholder="Fullname"
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                             value={fullname}
                             setValue={setFullname}
                         />
@@ -113,6 +155,7 @@ const SignUpBusinessScreen = () => {
                                 selectedValue={selectedValue}
                                 style={{ height: 40, width: "100%", }}
                                 onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+<<<<<<< HEAD
 
                             >
                                 
@@ -126,19 +169,34 @@ const SignUpBusinessScreen = () => {
 
                       
                         <CustomInput 
+=======
+                            >
+                                {specialities.map( (spe,ind)=><Picker.Item label={spe}  value={spe} />)}
+                            </Picker></View>
+
+                        <CustomInput
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                             placeholder="Phone"
                             value={phone}
                             setValue={setPhone}
                             keyboardType="numeric"
                         />
+<<<<<<< HEAD
 
+=======
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                         <CustomInput
                             secureTextEntry={true}
                             placeholder="Password"
                             value={password}
                             setValue={setPassword}
+<<<<<<< HEAD
                         />
                         
+=======
+
+                        />
+>>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                         <CustomInput
                             secureTextEntry={true}
                             placeholder="Repeat Password"

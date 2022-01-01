@@ -17,7 +17,7 @@ const LocationScreen = () => {
     const [curentPosition, setCurentPosition] = useState(initalState);
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
-            //   alert(JSON.stringify(position))
+            alert(JSON.stringify(position))
             const { longitude, latitude } = position.coords
             setCurentPosition({
                 ...curentPosition,

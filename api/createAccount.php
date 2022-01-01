@@ -1,9 +1,18 @@
 <?php
 require_once("config.php");
 $fullname = $DecodedData['fullname'];
-$login = $DecodedData['username'];
+$email = $DecodedData['email'];
 $pwd = $DecodedData['password'];
-$Requete = "INSERT into users(fullname,username,password) VALUES('$fullname','$login',MD5('$pwd') ) ";
+// $fullname = $_POST['fullname'];
+// $email = $_POST['email'];
+// $pwd = $_POST['password'];
+$role='Normal';
+$state=0;
+$now=strtotime("now");
+$created=date("Y-m-d H:i:s", $now+3600);
+$updated=date("Y-m-d H:i:s", $now+3600);
+$Requete = "INSERT into users(fullname,email,password,role,state,created,updated) 
+VALUES('$fullname','$email',MD5('$pwd'),'$role','$state','$created','$updated') ";
 $Resultat = $pdo->query($Requete);
 if ($Resultat) {
     $Message = 'Account created successfully !';
@@ -12,7 +21,4 @@ if ($Resultat) {
     $Message = 'Error Something went wrong !';
     echo $Message;
 }
-// $fullname = $_POST['fullname'];
-// $email = $_POST['email'];
-// $login = $_POST['username'];
-// $pwd = $_POST['password'];
+

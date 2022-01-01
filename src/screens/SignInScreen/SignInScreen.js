@@ -9,7 +9,7 @@ const SignInScreen = () => {
 
 
     const { height } = useWindowDimensions();
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const Navigation = useNavigation();
 
@@ -20,7 +20,7 @@ const SignInScreen = () => {
     }
 
     const onSignInPressed = () => {
-        if (username == '' || password == '') {
+        if (email == '' || password == '') {
             Alert.alert('Error', 'you should fill all fields !')
         } else {
             let headers = {
@@ -28,7 +28,7 @@ const SignInScreen = () => {
                 'Content-Type': 'application/json'
             }
             let data = {
-                username: username,
+                email: email,
                 password: password
             }
             fetch(
@@ -45,7 +45,7 @@ const SignInScreen = () => {
                 .then( Response => Response.text() )
                 .then((Response) => {
                     if (Response === "Login succesfully !") {
-                        setUsername('')
+                        setEmail('')
                         setPassword('')
                         Navigation.navigate("Home")
                     }
@@ -81,9 +81,9 @@ const SignInScreen = () => {
                     <View style={styles.test1}>
                         <CustomInput
                             secureTextEntry={false}
-                            placeholder="Username"
-                            value={username}
-                            setValue={setUsername}
+                            placeholder="Email"
+                            value={email}
+                            setValue={setEmail}
                         />
 
 
@@ -97,7 +97,7 @@ const SignInScreen = () => {
 
                         <CustomButton text1="Sign In" onPress={onSignInPressed} />
                         <CustomButton text1="Forgot Password ?" onPress={onForgotPasswordPressed} type='TERTIARY' />
-                        <Text style={{ marginTop: 30 }} > Don't have an account ? <Text style={{ textDecorationLine: 'underline', fontWeight: 'bold' }}>Create one</Text> </Text>
+                        <Text style={{ marginTop: 20 }} > Don't have an account ?  </Text>
                         <CustomButton text1="Create Personal account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
 
                         <CustomButton text1="Create Business account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />

@@ -1,14 +1,46 @@
 import React,{useState} from 'react'
-import { View, Text ,Image , StyleSheet, useWindowDimensions,ScrollView} from 'react-native'
+import { View, Text ,Image,Alert , StyleSheet, useWindowDimensions,ScrollView} from 'react-native'
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 const ForgetPassword = () => {
     const navigation=useNavigation();
    
-    const [Email,SetEmail]=useState('');
+    const [email,setEmail]=useState('');
+
     const onConfirmPressed = () => {
-        navigation.navigate("New Password");
+         if (email == '') {
+            Alert.alert('Error', 'you should fill Email field !')
+        } else {
+            let headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+            let data = {
+                email: email,
+            }
+            fetch(
+                //'http://10.0.2.2:80/mobile-api/createAccount.php',
+                'http://192.168.1.112:80/mobile-api/resetPassword.php',
+                {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data) 
+                }
+            )
+                .then( Response => Response.text() )
+                .then( Response => {
+                    if(Response==='The email you entred does not exist !'){
+                        Alert.alert('Error',Response)
+                    }else{
+                        Alert.alert('Success',Response)
+                        navigation.navigate('SignIn')
+                    }
+                }) 
+                .catch((error) => {
+                    console.error("ERROR FOUND" + error);
+                })
+        }
     }
     
     const onBackSignIn = () => {
@@ -22,8 +54,8 @@ const ForgetPassword = () => {
           <View style={{marginHorizontal:28}}>
           <Text style={{marginLeft:10}}> Email * </Text>
             <CustomInput 
-                value={Email}
-                setValue={SetEmail}
+                value={email}
+                setValue={setEmail}
                 secureTextEntry={false}
                 placeholder={'Enter your Email '}
                 
