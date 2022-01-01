@@ -68,16 +68,6 @@ const SignInScreen = () => {
     }
 
     return (
-<<<<<<< HEAD
-<ScrollView style ={{backgroundColor:"white"}}>
-        <View style={styles.root}>
-         
-          <Image
-                 source={require('../../../assets/images/logo1.png') } 
-                style={styles.logo,{height : height*0.15 , marginTop : 20}} 
-                resizeMode='contain'
-
-=======
         <ScrollView style={{ backgroundColor: "white" }}>
             <View style={styles.root}>
 
@@ -85,7 +75,6 @@ const SignInScreen = () => {
                  source={require('../../../assets/images/logo1.png') } 
                 style={styles.logo,{height : height*0.15 , marginTop : 20}} 
                 resizeMode='contain'
->>>>>>> 0b4a07fc9fc127e064ff68f22d622ec7303d20ca
                 />  
                 <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', paddingTop: 3 }} > FinoTbib </Text>
                 <View style={styles.test}>
