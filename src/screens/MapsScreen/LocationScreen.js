@@ -11,6 +11,7 @@ import MapView, {
 } from "react-native-maps";
 navigator.geolocation = require("@react-native-community/geolocation");
 
+
 const initalState = {
     latitude: null,
     longitude: null,
@@ -19,18 +20,16 @@ const initalState = {
 };
 
 
-
 const LocationScreen = () => {
 
-    const [latitudes, setLatitudes] = useState([]);
-    const [longitudes, setLongitudes] = useState([]);
-    const [localisations, setLocalisations] = useState([[], []]);
+    const [localisations, setLocalisations] = useState([]);
+    const [curentPosition, setCurentPosition] = useState(initalState);
 
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                alert(JSON.stringify(position));
+                // alert(JSON.stringify(position));
                 const { longitude, latitude } = position.coords;
                 setCurentPosition({
                     ...curentPosition,
@@ -44,90 +43,72 @@ const LocationScreen = () => {
     }, []);
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getLatitudes.php')
+        fetch('http://192.168.1.112:80/mobile-api/getLocalisations.php')
             .then(res => res.text())
-            .then(response => setLatitudes(response.split(',')))
-            .catch(err => console.warn(err))
-    }, [])
-
-    useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getLongitudes.php')
-            .then(res => res.text())
-            .then(response => setLongitudes(response.split(',')))
+            .then(response => setLocalisations(response.split(',')))
             .catch(err => console.warn(err))
     }, [])
 
 
-
-    const [curentPosition, setCurentPosition] = useState(initalState);
 
     return curentPosition.latitude ? (
         <View style={styles.containre}>
-            <View style={styles.views}>
-                <CustomInput placeholder={"latitude"} keyboardType="numeric" />
-
-                <CustomInput placeholder={"longitude"} keyboardType="numeric" />
-
-                <CustomButton bgColor={""} text1={"Location"} />
-            </View>
-
-            <MapView
-                provider={PROVIDER_GOOGLE}
-                style={{ height: "58%" }}
-                showsUserLocation={true}
-                followsUserLocation={true}
-                rotateEnabled={true}
-                zoomEnabled={true}
-                // toolbarEnabled={true}
-                initialRegion={curentPosition}
-            >
-
-                <Marker
-                    coordinate={{
-                        latitude: curentPosition.latitude,
-                        longitude: curentPosition.longitude,
-                    }}
-                    image={{ uri: "doctor" }}
+            {/* <View style={styles.views}> */}
+                <MapView
+                    provider={PROVIDER_GOOGLE}
+                    style={{ height: "58%" }}
+                    showsUserLocation={true}
+                    followsUserLocation={true}
+                    rotateEnabled={true}
+                    zoomEnabled={true}
+                    initialRegion={curentPosition}
                 >
-                    <Callout
-                        style={{ height: 100, width: 100 }}
-                        image={{ uri: "doctor" }}
-                    >
-                        <Text
-                            style={{
-                                height: 100,
-                                position: "relative",
-                                textAlign: "center",
-                                marginTop: -25,
-                            }}
-                        >
-                            <Image
-                                resizeMode="contain"
-                                source={{ uri: "doctor" }}
-                                style={{
-                                    width: 70,
-                                    height: 70,
-                                }}
-                            />
-                        </Text>
-                        <Text>tbib l9alb</Text>
-                    </Callout>
-                </Marker>
-
-
-                <Circle
-                    center={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
-                    radius={1000}
-                    fillColor={"rgba(100,10,20,0.2)"}
-                />
-            </MapView>
-            <View style={styles.views}>
-                <CustomButton bgColor={""} text1={"Save"} />
-            </View>
+                    {localisations.map(loca => {
+                        let i = loca.indexOf('+')
+                        let latitude = parseFloat(loca.slice(0, i))
+                        let longitude = parseFloat(loca.slice(i + 1,))
+                        {
+                            <Marker
+                                coordinate={
+                                    {
+                                        latitude: latitude,
+                                        longitude: longitude,
+                                    }
+                                }
+                                image={{ uri: "doctor" }}
+                            >
+                                <Callout
+                                    style={{ height: 100, width: 100 }}
+                                    image={{ uri: "doctor" }}
+                                >
+                                    <Text
+                                        style={{
+                                            height: 100,
+                                            position: "relative",
+                                            textAlign: "center",
+                                            marginTop: -25,
+                                        }}
+                                    > hhhhh
+                                        <Image
+                                            resizeMode="contain"
+                                            source={{ uri: "doctor" }}
+                                            style={{
+                                                width: 70,
+                                                height: 70,
+                                            }}
+                                        />
+                                    </Text>
+                                </Callout>
+                            </Marker>
+                        }
+                    }
+                    )
+                    }
+                </MapView>
+            {/* </View> */}
         </View>
-    ) : (
-        <ActivityIndicator style={{ flex: 1 }} animating size="large" />
-    );
+
+    ) : <Text >Failed</Text>
 };
 
 export default LocationScreen;

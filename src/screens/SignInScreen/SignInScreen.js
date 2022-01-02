@@ -45,7 +45,7 @@ const SignInScreen = () => {
                     if (Response === "Login Client succesfully !") {
                         setEmail('')
                         setPassword('')
-                        Navigation.navigate("HomeClient")
+                        Navigation.navigate("Localisation")
                     }else if(Response === "Login Doctor succesfully !"){
                         setEmail('')
                         setPassword('')
