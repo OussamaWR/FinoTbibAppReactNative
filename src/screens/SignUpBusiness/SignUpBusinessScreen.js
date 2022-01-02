@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Alert, View, ScrollView, TextInput } from 'react-native'
+import { StyleSheet, Text, Alert, View, ScrollView } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
 import LocationScreen from '../MapsScreen/LocationScreen';
 navigator.geolocation = require('@react-native-community/geolocation');
 const initalState = {
@@ -12,10 +13,12 @@ const initalState = {
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
 };
+=======
+navigator.geolocation = require("@react-native-community/geolocation");
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
 
 const SignUpBusinessScreen = () => {
     const [selectedValue, setSelectedValue] = useState("");
-
     const navigation = useNavigation();
     const [fullname, setFullname] = useState('');
     const [phone, setPhone] = useState();
@@ -23,6 +26,7 @@ const SignUpBusinessScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [specialities, setSpecialities] = useState([]);
+<<<<<<< HEAD
     const [curentPosition, setCurentPosition] = useState(initalState);
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
@@ -46,7 +50,42 @@ const SignUpBusinessScreen = () => {
                 setSpecialities(res.split(','))
             })
             .catch(err=>console.log())
+=======
+    const [speciality, setSpeciality] = useState('');
+
+    const initalState = {
+        latitude: null,
+        longitude: null,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    };
+    const [curentPosition, setCurentPosition] = useState(initalState);
+
+
+    useEffect(() => {
+        fetch('http://192.168.1.112:80/mobile-api/getSpecialities.php')
+            .then(res => res.text())
+            .then(response => setSpecialities(response.split(',')))
+            .catch(err => console.warn(err))
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
     }, [])
+
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                //alert(JSON.stringify(position));
+                const { longitude, latitude } = position.coords;
+                setCurentPosition({
+                    ...curentPosition,
+                    latitude, 
+                    longitude,
+                });
+            },
+            (error) => alert(error.message),
+            { timeout: 20000, maximumAge: 1000 }
+        );
+    }, []);
 
 
     const onRegisterPressed = () => {
@@ -64,6 +103,7 @@ const SignUpBusinessScreen = () => {
                 email: email,
                 phone: phone,
                 password: password,
+<<<<<<< HEAD
                 latitude: curentPosition.latitude,
                 longitude: curentPosition.longitude
             }
@@ -71,24 +111,39 @@ const SignUpBusinessScreen = () => {
                 //'http://10.0.2.2:80/mobile-api/createAccount.php',
                // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
                 'http://192.168.1.103:8080/Mobile%20API/createBisAccount.php',
+=======
+                speciality: speciality,
+                latitude: curentPosition.latitude,
+                longitude: curentPosition.longitude,
+            }
+            fetch(
+                'http://192.168.1.112:80/mobile-api/createBisAccount.php',
+                //'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
                 {
-                    method: 'POST',
+                    method: 'POST', 
                     headers: headers,
                     body: JSON.stringify(data)
                 }
             )
                 .then(res => res.text())
                 .then((txt) => {
+<<<<<<< HEAD
                     if (txt === 'Account created successfully !') {
                         Alert.alert('Success', txt, )
                         setFullname('')
+=======
+                    if (txt === 'Account created successfully !') {  
+                        Alert.alert('Success', txt)
+                        setFullname('') 
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
                         setEmail('')
                         setPhone()
                         setPassword('')
                         setPasswordRepeat('')
                        
                     } else {
-                        Alert.alert('Error', txt)
+                        Alert.alert('Error', txt) 
                     }
                 })
                 .catch(err => {
@@ -97,24 +152,13 @@ const SignUpBusinessScreen = () => {
         }
     }
 
-    const Terms = () => {
-        console.warn("Terms the use");
-    }
-    const policy = () => {
-        console.warn("Policy");
-    }
     const onSignUpPressed = () => {
         navigation.navigate("SignIn");
     }
-
-
-
     return (
         <ScrollView style={{ backgroundColor: "white" }}>
             <View style={styles.root}>
-
                 <Text style={styles.title}> Create an account </Text>
-
                 <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white' }} > FinoTbib </Text>
                 <View style={styles.test}>
                     <View style={styles.test1}>
@@ -130,23 +174,25 @@ const SignUpBusinessScreen = () => {
                             value={email}
                             setValue={setEmail}
                         />
-                        <Text style={{ color: 'gray', marginBottom: 5, marginLeft: -215 }}>Votre Spicialité : </Text>
+                        <Text style={{ color: 'gray', marginBottom: 5, marginLeft: -215 }}>Your Speciality : </Text>
                         <View style={styles.Border}
-
                         >
                             <Picker
                                 selectedValue={selectedValue}
                                 style={{ height: 40, width: "100%", }}
-                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                                onValueChange={(itemValue) => {
+                                    setSpeciality(itemValue)
+                                    setSelectedValue(itemValue)
+                                }}
                             >
-                                {specialities.map( (spe,ind)=><Picker.Item label={spe}  value={spe} />)}
-                            </Picker></View>
-
+                                {specialities.map(spe => <Picker.Item label={spe} key={spe} value={spe} />)}
+                            </Picker>
+                        </View>
                         <CustomInput
                             placeholder="Phone"
                             value={phone}
                             setValue={setPhone}
-                            keyboardType="numeric"
+                            keyBaordTypeInput="numeric"
                         />
                         <CustomInput
                             secureTextEntry={true}
@@ -160,17 +206,23 @@ const SignUpBusinessScreen = () => {
                             placeholder="Repeat Password"
                             value={passwordRepeat}
                             setValue={setPasswordRepeat}
-
                         />
+<<<<<<< HEAD
                         
 
                         <CustomButton text1="Register" onPress={onRegisterPressed} />
   
+=======
+                        <CustomButton text1="Register" onPress={onRegisterPressed} />
+                        <Text style={styles.text}> Have you an account ?</Text>
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
                         <CustomButton text1="Sign In" onPress={onSignUpPressed} fgColor='white' bgColor="#18CC05" />
-
                     </View>
                 </View>
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
             </View>
             
         </ScrollView>
@@ -185,15 +237,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: "#041C60"
     },
-
     root: {
 
         backgroundColor: "#56ADE7",
         width: '100%',
-        //padding:50,
         alignItems: 'center'
     },
-
     test: {
         marginTop: 10,
         borderRadius: 40,
@@ -205,7 +254,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         paddingTop: 5,
-        marginVertical: 60,
+        marginVertical: 25,
         paddingHorizontal: 30
     }
     ,
@@ -235,5 +284,4 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         backgroundColor: "#F9FBFF"
     }
-
 })

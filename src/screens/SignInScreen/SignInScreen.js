@@ -5,7 +5,7 @@ import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SignInScreen = () => {
+const SignInScreen = () => { 
 
 
     const { height } = useWindowDimensions();
@@ -41,23 +41,25 @@ const SignInScreen = () => {
                     body: JSON.stringify(data)
                 }
             )
-                // .then( (Response) => Alert.alert('Response',JSON.stringify(Response.json())))
                 .then( Response => Response.text() )
                 .then((Response) => {
-                    if (Response === "Login succesfully !") {
+                    if (Response === "Login Client succesfully !") {
                         setEmail('')
                         setPassword('')
-                        Navigation.navigate("Home")
+                        Navigation.navigate("HomeClient")
+                    }else if(Response === "Login Doctor succesfully !"){
+                        setEmail('')
+                        setPassword('')
+                        Navigation.navigate("HomeDoctor")
                     }
                     else{
-                        Alert.alert('Login Faild', 'Username or password incorrect')
+                        Alert.alert('Login Faild', 'Username or password incorrect ! ')
                     }
                 }) 
                 .catch((error) => {
                     console.error("ERROR FOUND" + error);
                 })
         }
-        // validation user
     }
     const onForgotPasswordPressed = () => {
         Navigation.navigate("ForgetPassword");
@@ -69,6 +71,11 @@ const SignInScreen = () => {
     const onTest=()=>{
         Navigation.navigate("Localisation")
     }
+
+    const onMapPressed = () => {
+        Navigation.navigate("Localisation")
+    }
+
 
     return (
         <ScrollView style={{ backgroundColor: "white" }}>
@@ -101,10 +108,15 @@ const SignInScreen = () => {
                         <CustomButton text1="Sign In" onPress={onSignInPressed} />
                         <CustomButton text1="Forgot Password ?" onPress={onForgotPasswordPressed} type='TERTIARY' />
                         <Text style={{ marginTop: 20 }} > Don't have an account ?  </Text>
+<<<<<<< HEAD
                         <CustomButton text1="Create Personal account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
 
                         <CustomButton text1="Create Business account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />
                         <CustomButton text1="TEST" onPress={onTest} type='TERTIARY' />
+=======
+                        <CustomButton text1="Create Client Account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
+                        <CustomButton text1="Create Doctor account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />
+>>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
                     </View>
                 </View>
 

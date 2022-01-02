@@ -5,8 +5,13 @@ $pwd = $DecodedData['password'];
 $Requete = "SELECT * from users where email='$email' and password=MD5('$pwd')";
 $Resultat = $pdo->query($Requete);
 if ($user = $Resultat->fetch()) {
-    $Message = 'Login succesfully !';
-    echo $Message;
+    if($user['role']==='client'){
+        $Message = 'Login Client succesfully !';
+        echo $Message;
+    }elseif($user['role']==='doctor'){
+        $Message = 'Login Doctor succesfully !';
+        echo $Message;
+    }
 } else {
     $Message = 'Login Failed !';
     echo $Message;
