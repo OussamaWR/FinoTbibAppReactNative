@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text, Image, Alert, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text, Alert, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
 const SignUpScreen = () => {
-
 
     const navigation = useNavigation();
     const [fullname, setFullname] = useState('');
@@ -28,27 +27,23 @@ const SignUpScreen = () => {
                 email: email,
                 password: password
             }
-
-             
-
             fetch(
-                //'http://10.0.2.2:80/mobile-api/createAccount.php',
                 'http://192.168.1.112:80/mobile-api/createAccount.php',
                 {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
                 }
             )
-                .then(res=>res.text())
+                .then(res => res.text())
                 .then((txt) => {
-                    if(txt==='Account created successfully !'){
+                    if (txt === 'Account created successfully !') {
                         Alert.alert('Success', txt)
                         setFullname('')
                         setEmail('')
-                        setPassword('') 
+                        setPassword('')
                         setPasswordRepeat('')
-                    }else{
+                    } else {
                         Alert.alert('Error', txt)
                     }
                 })
@@ -57,64 +52,52 @@ const SignUpScreen = () => {
                 })
         }
     }
-    const Terms = () => {
-        console.warn("Terms the use");
-    }
-    const policy = () => {
-        console.warn("Policy");
-    }
     const onSignUpPressed = () => {
         navigation.navigate("SignIn");
     }
 
     return (
+        <ScrollView style={{backgroundColor:'white'}} >
+            <View style={styles.root}>
+                <Text style={styles.title}> Create an account </Text>
 
-        <View style={styles.root}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white' }} > FinoTbib </Text>
+                <View style={styles.test}>
+                    <View style={styles.test1}>
+                        <CustomInput
+                            secureTextEntry={false}
+                            placeholder="Fullname"
+                            value={fullname}
+                            setValue={setFullname}
+                        />
 
-            <Text style={styles.title}> Create an account </Text>
+                        <CustomInput
+                            secureTextEntry={false}
+                            placeholder="Email"
+                            value={email}
+                            setValue={setEmail}
+                        />
+                        <CustomInput
+                            secureTextEntry={true}
+                            placeholder="Password"
+                            value={password}
+                            setValue={setPassword}
+                        />
+                        <CustomInput
+                            secureTextEntry={true}
+                            placeholder="Repeat Password"
+                            value={passwordRepeat}
+                            setValue={setPasswordRepeat}
+                        />
 
-            <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white' }} > FinoTbib </Text>
-            <View style={styles.test}>
-                <View style={styles.test1}>
-                    <CustomInput
-                        secureTextEntry={false}
-                        placeholder="Fullname"
-                        value={fullname}
-                        setValue={setFullname}
-                    />
-
-                    <CustomInput
-                        secureTextEntry={false}
-                        placeholder="Email"
-                        value={email}
-                        setValue={setEmail}
-                    />
-                    <CustomInput
-                        secureTextEntry={true}
-                        placeholder="Password"
-                        value={password}
-                        setValue={setPassword}
-                    />
-                    <CustomInput
-                        secureTextEntry={true}
-                        placeholder="Repeat Password"
-                        value={passwordRepeat}
-                        setValue={setPasswordRepeat}
-                    />
-
-                    <CustomButton text1="Register" onPress={onRegisterPressed} />
-
-                    <Text style={styles.text}>By Registring , you cofirm that you accepte our<Text onPress={Terms} style={styles.regl}> Terms of Use </Text> and <Text onPress={policy} style={styles.regl}> Privacy Policy</Text></Text>
-                    <Text style={styles.text}> Have an account ?</Text>
-                    <CustomButton text1="Sign In" onPress={onSignUpPressed} fgColor='white' bgColor="#18CC05" />
-
+                        <CustomButton text1="Register" onPress={onRegisterPressed} />
+                        <Text style={styles.text}> Have you an account ?</Text>
+                        <CustomButton text1="Sign In" onPress={onSignUpPressed} fgColor='white' bgColor="#18CC05" />
+                    </View>
                 </View>
             </View>
-
-        </View>
+        </ScrollView>
     )
-
-
 }
 const styles = StyleSheet.create({
     regl: {
@@ -122,15 +105,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: "#041C60"
     },
-
     root: {
 
         backgroundColor: "#56ADE7",
         width: '100%',
-        //padding:50,
         alignItems: 'center'
     },
-
     test: {
         marginTop: 10,
         borderRadius: 40,
