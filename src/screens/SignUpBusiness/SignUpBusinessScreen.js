@@ -1,15 +1,17 @@
-<<<<<<< HEAD
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, ScrollView, TextInput, Alert } from 'react-native'
-=======
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, Alert, View, ScrollView, TextInput } from 'react-native'
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
 import { Picker } from '@react-native-picker/picker';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-
+import LocationScreen from '../MapsScreen/LocationScreen';
+navigator.geolocation = require('@react-native-community/geolocation');
+const initalState = {
+    latitude: null,
+    longitude: null,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
+};
 
 const SignUpBusinessScreen = () => {
     const [selectedValue, setSelectedValue] = useState("");
@@ -20,17 +22,25 @@ const SignUpBusinessScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
-<<<<<<< HEAD
-
-
-    const onRegisterPressed = () => {
-        console.warn("eeeeeeeee",phone);
-=======
     const [specialities, setSpecialities] = useState([]);
-
+    const [curentPosition, setCurentPosition] = useState(initalState);
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            // alert(JSON.stringify(position))
+            const { longitude, latitude } = position.coords
+            setCurentPosition({
+                ...curentPosition,
+                latitude,
+                longitude,
+            })
+        },
+
+            error => alert(error.message),
+            { timeout: 20000, maximumAge: 1000 }
+        )
+
         fetch(
-            'http://192.168.1.112:80/mobile-api/getSpecialities.php',
+            'http://192.168.1.103:8080/Mobile%20API/getSpecialities.php',
         ).then(res => res.text())
             .then(res => {
                 setSpecialities(res.split(','))
@@ -40,7 +50,6 @@ const SignUpBusinessScreen = () => {
 
 
     const onRegisterPressed = () => {
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
         if (fullname == '' || email == '' || password == '' || passwordRepeat == '' || phone == '') {
             Alert.alert('Error', 'you should fill all fields !')
         } else if (password !== passwordRepeat) {
@@ -54,25 +63,14 @@ const SignUpBusinessScreen = () => {
                 fullname: fullname,
                 email: email,
                 phone: phone,
-                password: password
-<<<<<<< HEAD
-               
-
-            }
-
-
-
-            fetch(
-                //'http://10.0.2.2:80/mobile-api/createAccount.php',
-                //'http://192.168.1.112:80/mobile-api/createAccount.php',
-                'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
-=======
+                password: password,
+                latitude: curentPosition.latitude,
+                longitude: curentPosition.longitude
             }
             fetch(
                 //'http://10.0.2.2:80/mobile-api/createAccount.php',
-                'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-                //'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
+               // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
+                'http://192.168.1.103:8080/Mobile%20API/createBisAccount.php',
                 {
                     method: 'POST',
                     headers: headers,
@@ -82,16 +80,13 @@ const SignUpBusinessScreen = () => {
                 .then(res => res.text())
                 .then((txt) => {
                     if (txt === 'Account created successfully !') {
-                        Alert.alert('Success', txt)
+                        Alert.alert('Success', txt, )
                         setFullname('')
                         setEmail('')
                         setPhone()
                         setPassword('')
-<<<<<<< HEAD
-                       
-=======
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                         setPasswordRepeat('')
+                       
                     } else {
                         Alert.alert('Error', txt)
                     }
@@ -100,16 +95,8 @@ const SignUpBusinessScreen = () => {
                     console.log(err)
                 })
         }
-<<<<<<< HEAD
-
-
-
-        navigation.navigate("Localisation");
-    }
-=======
     }
 
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
     const Terms = () => {
         console.warn("Terms the use");
     }
@@ -133,11 +120,7 @@ const SignUpBusinessScreen = () => {
                     <View style={styles.test1}>
                         <CustomInput
                             secureTextEntry={false}
-<<<<<<< HEAD
-                            placeholder="Full Name"
-=======
                             placeholder="Fullname"
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                             value={fullname}
                             setValue={setFullname}
                         />
@@ -155,48 +138,23 @@ const SignUpBusinessScreen = () => {
                                 selectedValue={selectedValue}
                                 style={{ height: 40, width: "100%", }}
                                 onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-<<<<<<< HEAD
-
-                            >
-                                
-                                <Picker.Item label="karch" value="karch" />
-                                <Picker.Item label="l9alb" value="l9alb" />
-                                <Picker.Item label="tanafos" value="tanafos" />
-                                <Picker.Item label="mafasil" value="mafasil" />
-                                <Picker.Item label="daher" value="daher" />
-                            </Picker>
-                        </View>
-
-                      
-                        <CustomInput 
-=======
                             >
                                 {specialities.map( (spe,ind)=><Picker.Item label={spe}  value={spe} />)}
                             </Picker></View>
 
                         <CustomInput
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                             placeholder="Phone"
                             value={phone}
                             setValue={setPhone}
                             keyboardType="numeric"
                         />
-<<<<<<< HEAD
-
-=======
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                         <CustomInput
                             secureTextEntry={true}
                             placeholder="Password"
                             value={password}
                             setValue={setPassword}
-<<<<<<< HEAD
-                        />
-                        
-=======
 
                         />
->>>>>>> f41627b586fe9b9594bf6207797645881ea642e5
                         <CustomInput
                             secureTextEntry={true}
                             placeholder="Repeat Password"
@@ -204,18 +162,17 @@ const SignUpBusinessScreen = () => {
                             setValue={setPasswordRepeat}
 
                         />
-
+                        
 
                         <CustomButton text1="Register" onPress={onRegisterPressed} />
-
-                        <Text style={styles.text}>By Registring , you cofirm that you accepte our<Text onPress={Terms} style={styles.regl}> Terms of Use </Text> and <Text onPress={policy} style={styles.regl}> Privacy Policy</Text></Text>
-                        <Text style={styles.text}> Have an account ?</Text>
+  
                         <CustomButton text1="Sign In" onPress={onSignUpPressed} fgColor='white' bgColor="#18CC05" />
 
                     </View>
                 </View>
-
+                
             </View>
+            
         </ScrollView>
     ) 
 }

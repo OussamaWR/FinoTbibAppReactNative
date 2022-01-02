@@ -66,6 +66,9 @@ const SignInScreen = () => {
     const onSignUpbisPressed = () => {
         Navigation.navigate("SignUpBis")
     }
+    const onTest=()=>{
+        Navigation.navigate("Localisation")
+    }
 
     return (
         <ScrollView style={{ backgroundColor: "white" }}>
@@ -101,6 +104,7 @@ const SignInScreen = () => {
                         <CustomButton text1="Create Personal account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
 
                         <CustomButton text1="Create Business account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />
+                        <CustomButton text1="TEST" onPress={onTest} type='TERTIARY' />
                     </View>
                 </View>
 
