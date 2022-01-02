@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator, Alert } from "react-native";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import MapView, {
@@ -14,42 +14,46 @@ navigator.geolocation = require("@react-native-community/geolocation");
 const initalState = {
     latitude: null,
     longitude: null,
-    latitudeDelta: 0.02,
-    longitudeDelta: 0.02,
+    latitudeDelta: 0.055,
+    longitudeDelta: 0.055,
 };
 
-
+const initialLoc = [
+    {
+        latitude: null,
+        longitude: null
+    }
+]
 
 const LocationScreen = () => {
 
-<<<<<<< HEAD
-
-    const [curentPosition, setCurentPosition] = useState(initalState);
-
-
-
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(position => {
-            // alert(JSON.stringify(position))
-            const { longitude, latitude } = position.coords
-            setCurentPosition({
-                ...curentPosition,
-                latitude,
-                longitude,
-            })
-        },
-
-            error => alert(error.message),
-=======
     const [latitudes, setLatitudes] = useState([]);
     const [longitudes, setLongitudes] = useState([]);
-    const [localisations, setLocalisations] = useState([[], []]);
+    const [localisations, setLocalisations] = useState(initialLoc);
+
+
+
+    // var i=0;
+    // for(i=0;i<latitudes.length;i++){
+    //     initialLoc[i].latitude=latitudes[i];
+    //     initialLoc[i].longitude=longitudes[i];
+    // }
+
+
+
+    //   console.warn(items[0][1]); // 1
+    // items[0].length=2;
+    // items.length=latitudes.length;
+
+
+
+
 
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                alert(JSON.stringify(position));
+                // alert(JSON.stringify(position));
                 const { longitude, latitude } = position.coords;
                 setCurentPosition({
                     ...curentPosition,
@@ -58,139 +62,76 @@ const LocationScreen = () => {
                 });
             },
             (error) => alert(error.message),
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
             { timeout: 20000, maximumAge: 1000 }
         );
-    }, []);
 
-    useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getLatitudes.php')
+        fetch('http://192.168.1.103:8080/Mobile%20API/getLatitudes.php')
             .then(res => res.text())
             .then(response => setLatitudes(response.split(',')))
             .catch(err => console.warn(err))
-    }, [])
 
-<<<<<<< HEAD
-    const onSave = () => {
-    
-        let headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-        let data = {
-            latitude: curentPosition.latitude,
-            longitude: curentPosition.longitude
-        }
-        
-      
-        fetch(
-            'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-            // 'http://192.168.1.103:8080/Mobile%20API/localisationdata.php',
-            {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(data)
-            }
-        )
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-
-
-
-
-
-return curentPosition.latitude ? (
-    <View style={styles.containre}>
-        <View style={styles.views}>
-            <CustomInput
-                placeholder={'latitude'}
-                keyboardType="numeric"
-            />
-
-            <CustomInput
-                placeholder={'longitude'}
-                keyboardType="numeric"
-            />
-
-            <CustomButton
-                bgColor={""}
-                text1={'Location'}
-
-            /></View>
-
-        <MapView
-            provider={PROVIDER_GOOGLE}
-            style={{ height: "58%" }}
-
-            showsUserLocation={true}
-            followsUserLocation={true}
-            rotateEnabled={true}
-            zoomEnabled={true}
-            // toolbarEnabled={true}
-          
-            
-            initialRegion={curentPosition}
-        >
-
-            
-            <Marker
-                
-                coordinate={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
-            // image={{uri:"test"}}
-
-            >
-
-                <Callout style={{ height: 100, width: 100 }}
-                // image={{uri:"test"}}
-                >
-                    <Text style={{ height: 100, position: "relative", textAlign: 'center', marginTop: -25 }}>
-                        <Image
-                            resizeMode='contain'
-                            source={{ uri: "test" }}
-                            style={{
-                                width: 70,
-                                height: 70,
-                            }}
-                        />
-                    </Text>
-                    <Text>tbib l9alb</Text>
-
-
-                </Callout>
-            </Marker>
-
-            <Circle
-                center={{ latitude: 37.8025259, longitude: -122.4351431 }}
-                radius={1000}
-                fillColor={'rgba(100,100,200,0.2)'}
-            />
-
-        </MapView>
-        <View style={styles.views}>
-            <CustomButton
-                bgColor={""}
-                text1={'Save'}
-                onPress={onSave}
-            />
-        </View>
-
-    </View>
-) : <ActivityIndicator style={{ flex: 1 }} animating size="large" />
-}
-
-export default LocationScreen
-=======
-    useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getLongitudes.php')
+        fetch('http://192.168.1.103:8080/Mobile%20API/getLongitudes.php')
             .then(res => res.text())
             .then(response => setLongitudes(response.split(',')))
             .catch(err => console.warn(err))
+
     }, [])
 
 
+    // const items = [
+
+    //     [0, 0], [0, 0], [0, 0],[0,0]
+    // ];
+    var i = 0
+    var j = 0
+
+    const items = new Array(latitudes.length);
+    for(i=0;i<items.length;i++){
+      
+      items[i]=new Array(2)
+      
+    }
+ 
+  
+    
+    
+        for (j = 0; j < 2; j++) {
+            for (i = 0; i < longitudes.length; i++) {
+                if (j === 0) {
+                    items[i][j] = 0;
+    
+                } else {
+                    items[i][j] = 0;
+                }
+            }
+        }
+ 
+
+    
+
+    // console.log("===================================================")
+    // items.push(latitudes,longitudes);
+    // console.log(items);
+ 
+
+    for (j = 0; j < 2; j++) {
+        for (i = 0; i < longitudes.length; i++) {
+            if (j === 0) {
+                items[i][j] = longitudes[i];
+
+            } else {
+                items[i][j] = latitudes[i];
+            }
+        }
+    }
+
+ 
+
+
+
+    console.warn(items);
+    console.log(items);
+    // console.warn(items[1])
 
     const [curentPosition, setCurentPosition] = useState(initalState);
 
@@ -215,37 +156,40 @@ export default LocationScreen
                 initialRegion={curentPosition}
             >
 
-                <Marker
-                    coordinate={{
-                        latitude: curentPosition.latitude,
-                        longitude: curentPosition.longitude,
-                    }}
-                    image={{ uri: "doctor" }}
-                >
-                    <Callout
-                        style={{ height: 100, width: 100 }}
-                        image={{ uri: "doctor" }}
+                {items.map((item,index) =>
+                    <Marker
+                        coordinate={{
+                            latitude: Number(item[1]),
+                            longitude: Number(item[0]),
+                        }}
+                        key={index}
+                    // image={{ uri: "doctor" }}
                     >
-                        <Text
-                            style={{
-                                height: 100,
-                                position: "relative",
-                                textAlign: "center",
-                                marginTop: -25,
-                            }}
+                        <Callout
+                            style={{ height: 100, width: 100 }}
+                            image={{ uri: "doctor" }}
                         >
-                            <Image
-                                resizeMode="contain"
-                                source={{ uri: "doctor" }}
+                            <Text
                                 style={{
-                                    width: 70,
-                                    height: 70,
+                                    height: 100,
+                                    position: "relative",
+                                    textAlign: "center",
+                                    marginTop: -25,
                                 }}
-                            />
-                        </Text>
-                        <Text>tbib l9alb</Text>
-                    </Callout>
-                </Marker>
+                            >
+                                <Image
+                                    resizeMode="contain"
+                                    source={{ uri: "doctor" }}
+                                    style={{
+                                        width: 70,
+                                        height: 70,
+                                    }}
+                                />
+                            </Text>
+                            <Text>tbib l9alb</Text>
+                        </Callout>
+                    </Marker>)}
+
 
 
                 <Circle
@@ -264,18 +208,10 @@ export default LocationScreen
 };
 
 export default LocationScreen;
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
 
 const styles = StyleSheet.create({
     containre: {
         flex: 1,
-<<<<<<< HEAD
-
-    },
-    views: { marginBottom: 15, marginHorizontal: 40, marginTop: 20 }
-
-})
-=======
     },
     views: {
         marginBottom: 15,
@@ -283,4 +219,3 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
 });
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb

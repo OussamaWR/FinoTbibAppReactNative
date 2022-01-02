@@ -28,13 +28,7 @@ const SignUpScreen = () => {
                 password: password
             }
             fetch(
-<<<<<<< HEAD
-                //'http://10.0.2.2:80/mobile-api/createAccount.php',
-                //'http://192.168.1.112:80/mobile-api/createAccount.php',
                 'http://192.168.1.103:8080/Mobile%20API/createAccount.php',
-=======
-                'http://192.168.1.112:80/mobile-api/createAccount.php',
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
                 {
                     method: 'POST',
                     headers: headers,

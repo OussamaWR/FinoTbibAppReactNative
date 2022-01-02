@@ -4,18 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< HEAD
-import LocationScreen from '../MapsScreen/LocationScreen';
-navigator.geolocation = require('@react-native-community/geolocation');
-const initalState = {
-    latitude: null,
-    longitude: null,
-    latitudeDelta: 0.02,
-    longitudeDelta: 0.02,
-};
-=======
 navigator.geolocation = require("@react-native-community/geolocation");
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
 
 const SignUpBusinessScreen = () => {
     const [selectedValue, setSelectedValue] = useState("");
@@ -26,31 +15,6 @@ const SignUpBusinessScreen = () => {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [specialities, setSpecialities] = useState([]);
-<<<<<<< HEAD
-    const [curentPosition, setCurentPosition] = useState(initalState);
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(position => {
-            // alert(JSON.stringify(position))
-            const { longitude, latitude } = position.coords
-            setCurentPosition({
-                ...curentPosition,
-                latitude,
-                longitude,
-            })
-        },
-
-            error => alert(error.message),
-            { timeout: 20000, maximumAge: 1000 }
-        )
-
-        fetch(
-            'http://192.168.1.103:8080/Mobile%20API/getSpecialities.php',
-        ).then(res => res.text())
-            .then(res => {
-                setSpecialities(res.split(','))
-            })
-            .catch(err=>console.log())
-=======
     const [speciality, setSpeciality] = useState('');
 
     const initalState = {
@@ -63,11 +27,10 @@ const SignUpBusinessScreen = () => {
 
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getSpecialities.php')
+        fetch('http://192.168.1.103:8080/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(err))
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
     }, [])
 
 
@@ -78,7 +41,7 @@ const SignUpBusinessScreen = () => {
                 const { longitude, latitude } = position.coords;
                 setCurentPosition({
                     ...curentPosition,
-                    latitude, 
+                    latitude,
                     longitude,
                 });
             },
@@ -103,47 +66,31 @@ const SignUpBusinessScreen = () => {
                 email: email,
                 phone: phone,
                 password: password,
-<<<<<<< HEAD
-                latitude: curentPosition.latitude,
-                longitude: curentPosition.longitude
-            }
-            fetch(
-                //'http://10.0.2.2:80/mobile-api/createAccount.php',
-               // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-                'http://192.168.1.103:8080/Mobile%20API/createBisAccount.php',
-=======
                 speciality: speciality,
                 latitude: curentPosition.latitude,
                 longitude: curentPosition.longitude,
             }
             fetch(
-                'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-                //'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
+                // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
+                'http://192.168.1.103:8080/Mobile%20API/createBisAccount.php',
                 {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
                 }
             )
                 .then(res => res.text())
                 .then((txt) => {
-<<<<<<< HEAD
                     if (txt === 'Account created successfully !') {
-                        Alert.alert('Success', txt, )
-                        setFullname('')
-=======
-                    if (txt === 'Account created successfully !') {  
                         Alert.alert('Success', txt)
-                        setFullname('') 
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
+                        setFullname('')
                         setEmail('')
                         setPhone()
                         setPassword('')
                         setPasswordRepeat('')
-                       
+
                     } else {
-                        Alert.alert('Error', txt) 
+                        Alert.alert('Error', txt)
                     }
                 })
                 .catch(err => {
@@ -207,26 +154,15 @@ const SignUpBusinessScreen = () => {
                             value={passwordRepeat}
                             setValue={setPasswordRepeat}
                         />
-<<<<<<< HEAD
-                        
-
-                        <CustomButton text1="Register" onPress={onRegisterPressed} />
-  
-=======
                         <CustomButton text1="Register" onPress={onRegisterPressed} />
                         <Text style={styles.text}> Have you an account ?</Text>
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
                         <CustomButton text1="Sign In" onPress={onSignUpPressed} fgColor='white' bgColor="#18CC05" />
                     </View>
                 </View>
-<<<<<<< HEAD
-                
-=======
->>>>>>> 02dab770d57c22ca1dbabf455142f8fb447a52eb
             </View>
-            
+
         </ScrollView>
-    ) 
+    )
 }
 
 export default SignUpBusinessScreen
