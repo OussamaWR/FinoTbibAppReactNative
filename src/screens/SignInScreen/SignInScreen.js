@@ -33,7 +33,8 @@ const SignInScreen = () => {
             }
             fetch(
                 //'http://10.0.2.2:80/mobile-api/createAccount.php',
-                'http://192.168.1.112:80/mobile-api/login.php',
+                //'http://192.168.1.112:80/mobile-api/login.php',
+                'http://192.168.1.103:8080/Mobile%20API/login.php',
                 {
                     method: 'POST',
                     headers: headers,
@@ -49,7 +50,7 @@ const SignInScreen = () => {
                     }else if(Response === "Login Doctor succesfully !"){
                         setEmail('')
                         setPassword('')
-                        Navigation.navigate("HomeDoctor")
+                        Navigation.navigate("Localisation")
                     }
                     else{
                         Alert.alert('Login Faild', 'Username or password incorrect ! ')
@@ -66,6 +67,9 @@ const SignInScreen = () => {
 
     const onSignUpbisPressed = () => {
         Navigation.navigate("SignUpBis")
+    }
+    const onTest=()=>{
+        Navigation.navigate("Localisation")
     }
 
     const onMapPressed = () => {

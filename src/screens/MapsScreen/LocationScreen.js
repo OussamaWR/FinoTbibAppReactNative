@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator, Alert } from "react-native";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import MapView, {
@@ -15,15 +15,15 @@ navigator.geolocation = require("@react-native-community/geolocation");
 const initalState = {
     latitude: null,
     longitude: null,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    latitudeDelta: 0.055,
+    longitudeDelta: 0.055,
 };
 
 
 const LocationScreen = () => {
 
-    const [localisations, setLocalisations] = useState([]);
-    const [curentPosition, setCurentPosition] = useState(initalState);
+    const [latitudes, setLatitudes] = useState([]);
+    const [longitudes, setLongitudes] = useState([]);
 
 
     useEffect(() => {
@@ -40,72 +40,121 @@ const LocationScreen = () => {
             (error) => alert(error.message),
             { timeout: 20000, maximumAge: 1000 }
         );
-    }, []);
-
-    useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getLocalisations.php')
+        fetch('http://192.168.1.112:80/mobile-api/getLatitudes.php')
             .then(res => res.text())
-            .then(response => setLocalisations(response.split(',')))
+            .then(response => setLatitudes(response.split(',')))
             .catch(err => console.warn(err))
+        fetch('http://192.168.1.112:80/mobile-api/getLongitudes.php')
+            .then(res => res.text())
+            .then(response => setLongitudes(response.split(',')))
+            .catch(err => console.warn(err))
+
     }, [])
 
+    var i = 0
+    var j = 0
 
+    const items = new Array(latitudes.length);
+    for(i=0;i<items.length;i++){
+      items[i]=new Array(2)
+    }
+ 
+
+        for (j = 0; j < 2; j++) {
+            for (i = 0; i < longitudes.length; i++) {
+                if (j === 0) {
+                    items[i][j] = 0;
+    
+                } else {
+                    items[i][j] = 0;
+                }
+            }
+        }
+ 
+
+    for (j = 0; j < 2; j++) {
+        for (i = 0; i < longitudes.length; i++) {
+            if (j === 0) {
+                items[i][j] = longitudes[i];
+
+            } else {
+                items[i][j] = latitudes[i];
+            }
+        }
+    }
+
+ 
+
+
+
+    console.warn(items);
+    console.log(items);
+
+    const [curentPosition, setCurentPosition] = useState(initalState);
 
     return curentPosition.latitude ? (
         <View style={styles.containre}>
-            {/* <View style={styles.views}> */}
-                <MapView
-                    provider={PROVIDER_GOOGLE}
-                    style={{ height: "58%" }}
-                    showsUserLocation={true}
-                    followsUserLocation={true}
-                    rotateEnabled={true}
-                    zoomEnabled={true}
-                    initialRegion={curentPosition}
-                >
-                    {localisations.map(loca => {
-                        let i = loca.indexOf('+')
-                        let latitude = parseFloat(loca.slice(0, i))
-                        let longitude = parseFloat(loca.slice(i + 1,))
-                        {
-                            <Marker
-                                coordinate={
-                                    {
-                                        latitude: latitude,
-                                        longitude: longitude,
-                                    }
-                                }
-                                image={{ uri: "doctor" }}
+            <View style={styles.views}>
+                <CustomInput placeholder={"latitude"} keyboardType="numeric" />
+
+                <CustomInput placeholder={"longitude"} keyboardType="numeric" />
+
+                <CustomButton bgColor={""} text1={"Location"} />
+            </View>
+
+            <MapView
+                provider={PROVIDER_GOOGLE}
+                style={{ height: "58%" }}
+                showsUserLocation={true}
+                followsUserLocation={true}
+                rotateEnabled={true}
+                zoomEnabled={true}
+                initialRegion={curentPosition}
+            >
+
+                {items.map((item,index) =>
+                    <Marker
+                        coordinate={{
+                            latitude: Number(item[1]),
+                            longitude: Number(item[0]),
+                        }}
+                        key={index}
+                    >
+                        <Callout
+                            style={{ height: 100, width: 100 }}
+                            image={{ uri: "doctor" }}
+                        >
+                            <Text
+                                style={{
+                                    height: 100,
+                                    position: "relative",
+                                    textAlign: "center",
+                                    marginTop: -25,
+                                }}
                             >
-                                <Callout
-                                    style={{ height: 100, width: 100 }}
-                                    image={{ uri: "doctor" }}
-                                >
-                                    <Text
-                                        style={{
-                                            height: 100,
-                                            position: "relative",
-                                            textAlign: "center",
-                                            marginTop: -25,
-                                        }}
-                                    > hhhhh
-                                        <Image
-                                            resizeMode="contain"
-                                            source={{ uri: "doctor" }}
-                                            style={{
-                                                width: 70,
-                                                height: 70,
-                                            }}
-                                        />
-                                    </Text>
-                                </Callout>
-                            </Marker>
-                        }
-                    }
-                    )
-                    }
-                </MapView>
-            {/* </View> */}
+                                <Image
+                                    resizeMode="contain"
+                                    source={{ uri: "doctor" }}
+                                    style={{
+                                        width: 70,
+                                        height: 70,
+                                    }}
+                                />
+                            </Text>
+                            <Text>tbib l9alb</Text>
+                        </Callout>
+                    </Marker>)}
+
+
+                <Circle
+                    center={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
+                    radius={1000}
+                    fillColor={"rgba(100,10,20,0.2)"}
+                />
+            </MapView>
+            <View style={styles.views}>
+                <CustomButton bgColor={""} text1={"Save"} />
+            </View>
         </View>
 
     ) : <Text >Failed</Text>

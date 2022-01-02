@@ -27,7 +27,7 @@ const SignUpBusinessScreen = () => {
 
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/mobile-api/getSpecialities.php')
+        fetch('http://192.168.1.103:8080/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(err))
@@ -41,7 +41,7 @@ const SignUpBusinessScreen = () => {
                 const { longitude, latitude } = position.coords;
                 setCurentPosition({
                     ...curentPosition,
-                    latitude, 
+                    latitude,
                     longitude,
                 });
             },
@@ -71,25 +71,26 @@ const SignUpBusinessScreen = () => {
                 longitude: curentPosition.longitude,
             }
             fetch(
-                'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-                //'http://192.168.1.103:8080/Mobile%20API/createAccountDoc.php',
+                // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
+                'http://192.168.1.103:8080/Mobile%20API/createBisAccount.php',
                 {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
                 }
             )
                 .then(res => res.text())
                 .then((txt) => {
-                    if (txt === 'Account created successfully !') {  
+                    if (txt === 'Account created successfully !') {
                         Alert.alert('Success', txt)
-                        setFullname('') 
+                        setFullname('')
                         setEmail('')
                         setPhone()
                         setPassword('')
                         setPasswordRepeat('')
+
                     } else {
-                        Alert.alert('Error', txt) 
+                        Alert.alert('Error', txt)
                     }
                 })
                 .catch(err => {
@@ -159,6 +160,7 @@ const SignUpBusinessScreen = () => {
                     </View>
                 </View>
             </View>
+
         </ScrollView>
     )
 }
