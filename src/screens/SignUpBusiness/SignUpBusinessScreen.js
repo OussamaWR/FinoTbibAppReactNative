@@ -27,11 +27,7 @@ const SignUpBusinessScreen = () => {
 
 
     useEffect(() => {
-<<<<<<< HEAD
         fetch('http://192.168.1.112:80/mobile-api/getSpecialities.php')
-=======
-        fetch('http://192.168.1.102:8080/Mobile%20API/getSpecialities.php')
->>>>>>> main
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(err))
@@ -75,13 +71,8 @@ const SignUpBusinessScreen = () => {
                 longitude: curentPosition.longitude,
             }
             fetch(
-<<<<<<< HEAD
                  'http://192.168.1.112:80/mobile-api/createBisAccount.php',
                 //'http://192.168.1.103:8080/Mobile%20API/createBisAccount.php',
-=======
-                // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-                'http://192.168.1.102:8080/Mobile%20API/createBisAccount.php',
->>>>>>> main
                 {
                     method: 'POST',
                     headers: headers,
