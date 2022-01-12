@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import NavBar from '../../components/Menu/NavBar';
 
 
 const WelcomeScreen = () => {
@@ -11,23 +12,35 @@ const WelcomeScreen = () => {
 
     const onStartPressed = () => Navigation.navigate("Localisation")
 
+    const PressHome=()=>{
+      Navigation.navigate("Localisation");
+    }
+      
+
 
     return (
-        <ScrollView style={{ backgroundColor: "white" }}>
-            <View style={styles.root}>
-                <Image
-                    source={require('../../../assets/images/logo1.png')}
-                    style={styles.logo, { height: height * 0.15, marginTop: 20 }}
-                    resizeMode='contain'
-                />
-                <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', paddingTop: 3 }} > FinoTbib </Text>
-                <View style={styles.test}>
-                    <View style={styles.test1}>
-                        <CustomButton text1="Start" onPress={onStartPressed} bgColor="#56ADE7" fgColor="white" />
+        <View>
+            <ScrollView style={{ backgroundColor: "white",height:"90%" }}>
+                <View style={styles.root}>
+                    <Image
+                        source={require('../../../assets/images/logo1.png')}
+                        style={styles.logo, { height: height * 0.15, marginTop: 20 }}
+                        resizeMode='contain'
+                    />
+                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', paddingTop: 3 }} > FinoTbib </Text>
+                    <View style={styles.test}>
+                        <View style={styles.test1}>
+                            <CustomButton text1="Start" onPress={onStartPressed} bgColor="#56ADE7" fgColor="white" />
+                        </View>
                     </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+            
+            <NavBar
+                home={PressHome}
+            />
+
+        </View>
     )
 }
 const styles = StyleSheet.create({
