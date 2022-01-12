@@ -1,3 +1,4 @@
+
     import React from 'react'
     import { NavigationContainer } from '@react-navigation/native';
     import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,12 +10,14 @@
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
+   import Drawer from '../Drawer';
     
     const Stack = createNativeStackNavigator(); 
     const Navigation = () => {
         return (
             <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}}>
+            {/* <Stack.Screen name="Menu" component={Drawer} /> */}
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
