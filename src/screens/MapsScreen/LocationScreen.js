@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, ActivityIndicator, Alert } from "react-native";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
+import NavBar from "../../components/Menu/NavBar";
 import MapView, {
     PROVIDER_GOOGLE,
     Marker,
@@ -142,6 +143,7 @@ console.log(items);
 
 
 
+<<<<<<< HEAD
     console.warn(items);
     console.log(items);
    
@@ -151,6 +153,11 @@ console.log(items);
 
     console.warn(items);
     console.log(items);
+=======
+    // console.warn(items);
+    // console.log(items);
+    // console.warn(items[1])
+>>>>>>> main
 
     const [curentPosition, setCurentPosition] = useState(initalState);
 
@@ -218,6 +225,7 @@ console.log(items);
             <View style={styles.views}>
                 <CustomButton bgColor={""} text1={"Save"} />
             </View>
+           
         </View>
 
     ) : <Text >Failed</Text>
@@ -228,6 +236,7 @@ export default LocationScreen;
 const styles = StyleSheet.create({
     containre: {
         flex: 1,
+        
     },
     views: {
         marginBottom: 15,

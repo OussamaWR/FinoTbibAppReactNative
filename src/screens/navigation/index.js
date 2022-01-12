@@ -10,6 +10,11 @@
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
+<<<<<<< HEAD
+=======
+   import NavBar from '../../components/Menu/NavBar';
+
+>>>>>>> 336fcf55904ecb19441cbd225c3c64f43a706db7
     
     const Stack = createNativeStackNavigator(); 
     const Navigation = () => {
@@ -18,6 +23,7 @@
             <Stack.Navigator screenOptions={{headerShown:false}}>
             {/* <Stack.Screen name="Menu" component={Drawer} /> */}
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="navbar" component={NavBar} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
                 <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
