@@ -10,13 +10,15 @@ import { Text, View } from 'react-native';
 //     DrawerItem,
 //   } from '@react-navigation/drawer';
 
-export default function HomeScreen() {
+function HomeScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home!</Text>
     </View>
   );
 }
+
+export default HomeScreen;
 
 // function DoctorsScreen() {
 //     return (

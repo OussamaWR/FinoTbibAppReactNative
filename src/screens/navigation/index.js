@@ -6,7 +6,7 @@
     import ForgetPassword from '../ForgetPassword';
    import SignUpBusinessScreen from '../SignUpBusiness/SignUpBusinessScreen';
    import LocationScreen from '../MapsScreen/LocationScreen';
-   //import HomeScreen from '../HomeScreen'; 
+   import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
     
@@ -20,7 +20,7 @@
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
                 <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
                 <Stack.Screen name="HomeDoctor" component={HomeBuisness} />
-                {/* <Stack.Screen name="HomeClient" component={HomeScreen} /> */}
+                <Stack.Screen name="HomeClient" component={HomeScreen} />
                 <Stack.Screen name="SignUpBis" component={SignUpBusinessScreen} />
                 <Stack.Screen  name="Localisation" component={LocationScreen} />
             </Stack.Navigator>
