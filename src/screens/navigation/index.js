@@ -10,7 +10,6 @@
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
-   import Drawer from '../Drawer';
     
     const Stack = createNativeStackNavigator(); 
     const Navigation = () => {
