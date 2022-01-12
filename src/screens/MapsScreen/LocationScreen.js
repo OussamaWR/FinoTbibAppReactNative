@@ -51,15 +51,20 @@ const LocationScreen = () => {
 
     }, [])
 
+    
     var i = 0
     var j = 0
 
     const items = new Array(latitudes.length);
     for(i=0;i<items.length;i++){
+      
       items[i]=new Array(2)
+      
     }
  
-
+  
+    
+    
         for (j = 0; j < 2; j++) {
             for (i = 0; i < longitudes.length; i++) {
                 if (j === 0) {
@@ -70,6 +75,13 @@ const LocationScreen = () => {
                 }
             }
         }
+ 
+
+    
+
+    // console.log("===================================================")
+    // items.push(latitudes,longitudes);
+    // console.log(items);
  
 
     for (j = 0; j < 2; j++) {
@@ -84,6 +96,13 @@ const LocationScreen = () => {
     }
 
  
+
+
+
+    console.warn(items);
+    console.log(items);
+   
+
 
 
 
