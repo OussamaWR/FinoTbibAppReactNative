@@ -9,7 +9,7 @@ const WelcomeScreen = () => {
     const { height } = useWindowDimensions();
     const Navigation = useNavigation();
 
-    const onStartPressed = () => Navigation.navigate("Localisation")
+    const onStartPressed = () => Navigation.navigate("SignIn")
 
 
     return (

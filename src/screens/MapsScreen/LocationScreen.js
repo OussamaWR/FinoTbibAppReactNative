@@ -18,18 +18,13 @@ const initalState = {
     longitudeDelta: 0.055,
 };
 
-const initialLoc = [
-    {
-        latitude: null,
-        longitude: null
-    }
-]
+
 
 const LocationScreen = () => {
 
     const [latitudes, setLatitudes] = useState([]);
     const [longitudes, setLongitudes] = useState([]);
-    const [localisations, setLocalisations] = useState(initialLoc);
+   
 
 
 
@@ -65,12 +60,12 @@ const LocationScreen = () => {
             { timeout: 20000, maximumAge: 1000 }
         );
 
-        fetch('http://192.168.1.103:8080/Mobile%20API/getLatitudes.php')
+        fetch('http://192.168.1.102:8080/Mobile%20API/getLatitudes.php')
             .then(res => res.text())
             .then(response => setLatitudes(response.split(',')))
             .catch(err => console.warn(err))
 
-        fetch('http://192.168.1.103:8080/Mobile%20API/getLongitudes.php')
+        fetch('http://192.168.1.102:8080/Mobile%20API/getLongitudes.php')
             .then(res => res.text())
             .then(response => setLongitudes(response.split(',')))
             .catch(err => console.warn(err))
@@ -78,33 +73,49 @@ const LocationScreen = () => {
     }, [])
 
 
-    // const items = [
+    const items = [
 
-    //     [0, 0], [0, 0], [0, 0],[0,0]
-    // ];
+        [0, 0], [0, 0], [0, 0]
+    ];
     var i = 0
     var j = 0
 
-    const items = new Array(latitudes.length);
-    for(i=0;i<items.length;i++){
-      
-      items[i]=new Array(2)
-      
+
+
+
+for (j = 0; j < 2; j++) {
+    for (i = 0; i < longitudes.length; i++) {
+        if (j === 0) {
+            items[i][j] = longitudes[i];
+
+        } else {
+            items[i][j] = latitudes[i];
+        }
     }
+}
+console.log(items);
+
+
+    // var items = new Array(latitudes.length);
+    // for(i=0;i<items.length;i++){
+      
+    //   items[i]=new Array(2)
+      
+    // }
  
   
     
     
-        for (j = 0; j < 2; j++) {
-            for (i = 0; i < longitudes.length; i++) {
-                if (j === 0) {
-                    items[i][j] = 0;
+    //     for (j = 0; j < 2; j++) {
+    //         for (i = 0; i < longitudes.length; i++) {
+    //             if (j === 0) {
+    //                 items[i][j] = 0;
     
-                } else {
-                    items[i][j] = 0;
-                }
-            }
-        }
+    //             } else {
+    //                 items[i][j] = 0;
+    //             }
+    //         }
+    //     }
  
 
     
@@ -114,16 +125,7 @@ const LocationScreen = () => {
     // console.log(items);
  
 
-    for (j = 0; j < 2; j++) {
-        for (i = 0; i < longitudes.length; i++) {
-            if (j === 0) {
-                items[i][j] = longitudes[i];
-
-            } else {
-                items[i][j] = latitudes[i];
-            }
-        }
-    }
+    
 
  
 

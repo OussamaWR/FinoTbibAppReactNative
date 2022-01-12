@@ -34,7 +34,7 @@ const SignInScreen = () => {
             fetch(
                 //'http://10.0.2.2:80/mobile-api/createAccount.php',
                 //'http://192.168.1.112:80/mobile-api/login.php',
-                'http://192.168.1.103:8080/Mobile%20API/login.php',
+                'http://192.168.1.102:8080/Mobile%20API/login.php',
                 {
                     method: 'POST',
                     headers: headers,
