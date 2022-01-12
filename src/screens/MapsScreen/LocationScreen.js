@@ -12,12 +12,19 @@ import MapView, {
 navigator.geolocation = require("@react-native-community/geolocation");
 
 
+
+
+
 const initalState = {
     latitude: null,
     longitude: null,
     latitudeDelta: 0.055,
     longitudeDelta: 0.055,
 };
+
+
+
+
 
 
 const LocationScreen = () => {
@@ -70,6 +77,11 @@ const LocationScreen = () => {
             .then(response => setLongitudes(response.split(',')))
             .catch(err => console.warn(err))
 
+        // fetch('http://192.168.1.102:8080/Mobile%20API/CountLongitudes.php')
+        //     .then(res => res.text())
+        //     .then(response => setLength(Number(response)))
+        //     .catch(err => console.warn(err))
+        
     }, [])
 
 
@@ -118,16 +130,15 @@ console.log(items);
     //     }
  
 
-    
 
     // console.log("===================================================")
     // items.push(latitudes,longitudes);
     // console.log(items);
- 
+
 
     
 
- 
+
 
 
 
@@ -163,7 +174,7 @@ console.log(items);
                 initialRegion={curentPosition}
             >
 
-                {items.map((item,index) =>
+                {items.map((item, index) =>
                     <Marker
                         coordinate={{
                             latitude: Number(item[1]),
@@ -194,7 +205,8 @@ console.log(items);
                             </Text>
                             <Text>tbib l9alb</Text>
                         </Callout>
-                    </Marker>)}
+                    </Marker>)
+                    }
 
 
                 <Circle
