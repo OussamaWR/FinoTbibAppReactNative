@@ -16,7 +16,8 @@ const SignInScreen = () => {
 
 
     const onSignUpPressed = () => {
-        Navigation.navigate("SignUp");
+        // Navigation.navigate("SignUp");
+        Navigation.navigate("HomeClient");
     }
 
     const onSignInPressed = () => {
