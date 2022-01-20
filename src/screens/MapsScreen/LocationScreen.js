@@ -143,21 +143,9 @@ console.log(items);
 
 
 
-<<<<<<< HEAD
-    console.warn(items);
-    console.log(items);
-   
-
-
-
-
-    console.warn(items);
-    console.log(items);
-=======
     // console.warn(items);
     // console.log(items);
     // console.warn(items[1])
->>>>>>> main
 
     const [curentPosition, setCurentPosition] = useState(initalState);
 

@@ -1,7 +1,8 @@
 
-    import React from 'react'
+    import React  from 'react'
+    import {Text} from 'react-native'
     import { NavigationContainer } from '@react-navigation/native';
-    import { createNativeStackNavigator } from '@react-navigation/native-stack';
+    import { createStackNavigator } from '@react-navigation/stack';
     import SignInScreen from '../SignInScreen';
     import SignUpScreen from '../SignUpScreen';
     import ForgetPassword from '../ForgetPassword';
@@ -10,16 +11,14 @@
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
-<<<<<<< HEAD
-=======
    import NavBar from '../../components/Menu/NavBar';
 
->>>>>>> 336fcf55904ecb19441cbd225c3c64f43a706db7
     
-    const Stack = createNativeStackNavigator(); 
+    const Stack = createStackNavigator(); 
     const Navigation = () => {
         return (
             <NavigationContainer>
+
             <Stack.Navigator screenOptions={{headerShown:false}}>
             {/* <Stack.Screen name="Menu" component={Drawer} /> */}
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -35,6 +34,7 @@
             </NavigationContainer> 
         )
     }
+   
 
     export  {Navigation};
     
