@@ -20,6 +20,7 @@ import com.facebook.react.bridge.JSIModulePackage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
     this,
@@ -35,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
+      // package.add(new RNImmediatePhoneCallPackage())
       return packages;
     }
 
@@ -63,6 +65,7 @@ public class MainApplication extends Application implements ReactApplication {
     super.onConfigurationChanged(newConfig);
     ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig);
   }
+  
 
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like
