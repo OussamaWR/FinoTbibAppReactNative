@@ -10,7 +10,7 @@
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
-   import NavBar from '../../components/Menu/NavBar';
+   import Setting from '../Setting';
 
     
     const Stack = createNativeStackNavigator(); 
@@ -20,7 +20,7 @@
             <Stack.Navigator screenOptions={{headerShown:false}}>
             {/* <Stack.Screen name="Menu" component={Drawer} /> */}
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
-                <Stack.Screen name="navbar" component={NavBar} />
+                <Stack.Screen name="Setting" component={Setting} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
                 <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
@@ -28,6 +28,7 @@
                 <Stack.Screen name="HomeClient" component={HomeScreen} />
                 <Stack.Screen name="SignUpBis" component={SignUpBusinessScreen} />
                 <Stack.Screen  name="Localisation" component={LocationScreen} />
+             
             </Stack.Navigator>
             </NavigationContainer>
         )

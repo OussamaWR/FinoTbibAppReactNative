@@ -15,15 +15,16 @@ const NavBar = ({home,map,setting,profil}) => {
         <View style={{
             backgroundColor: '#56ADE7',
             width: '95%',
-            height: "10%",
+            height: 70,
             margin: 10,
             marginTop:-5,
+           alignItems:'center',
             padding: 10,
             borderRadius: 20,
             flexDirection: "row", justifyContent: 'space-evenly'
         }}>
 
-            <TouchableOpacity>
+          
             <Pressable
                 onPress={home}
             >
@@ -33,8 +34,7 @@ const NavBar = ({home,map,setting,profil}) => {
                     resizeMode='contain'
                 />
             </Pressable>
-            </TouchableOpacity>
-            <TouchableOpacity>
+           
             <Pressable
              onPress={map}
             >
@@ -44,9 +44,9 @@ const NavBar = ({home,map,setting,profil}) => {
                     resizeMode='contain'
                 />
             </Pressable>
-            </TouchableOpacity>
+        
 
-            <TouchableOpacity>
+          
             <Pressable
             
             onPress={setting}>
@@ -56,10 +56,10 @@ const NavBar = ({home,map,setting,profil}) => {
                     resizeMode='contain'
                 />
             </Pressable>
-            </TouchableOpacity>
-            <TouchableOpacity>
+           
+            
             <Pressable
-             onPress={profil}
+               onPress={profil}
             >
                 <Image
                     source={require('../../../assets/images/Profil.png')}
@@ -67,7 +67,7 @@ const NavBar = ({home,map,setting,profil}) => {
                     resizeMode='contain'
                 />
             </Pressable>
-            </TouchableOpacity>
+        
         </View>
     )
 }
@@ -76,8 +76,10 @@ export default NavBar
 
 const styles = StyleSheet.create({
     image: {
-
-        marginTop: 10,
+        width:40,
+        height:40,
+        marginTop: 5,
         marginLeft: 10,
+        
     }
 })
