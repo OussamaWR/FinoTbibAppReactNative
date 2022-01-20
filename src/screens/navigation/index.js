@@ -10,11 +10,8 @@
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
    import WelcomeScreen from '../WelcomeScreen'; 
-<<<<<<< HEAD
-=======
-   import NavBar from '../../components/Menu/NavBar';
+   import NavBar from '../../components/Menu/NavBar'; 
 
->>>>>>> 336fcf55904ecb19441cbd225c3c64f43a706db7
     
     const Stack = createNativeStackNavigator(); 
     const Navigation = () => {
