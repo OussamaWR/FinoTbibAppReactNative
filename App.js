@@ -10,9 +10,6 @@ const App = () => {
 
   return (
     <View  style={{flex:1,width:"100%"}}>
-<<<<<<< HEAD
-      <Navigation />
-=======
     
       <Navigation/>
       
@@ -20,7 +17,6 @@ const App = () => {
     
 
 
->>>>>>> 8c92f0f07991ae31d62e42f58467c4ccca65f987
     </View>
   );
 }
