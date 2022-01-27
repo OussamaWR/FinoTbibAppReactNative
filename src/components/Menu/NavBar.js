@@ -16,6 +16,7 @@ const NavBar = ({home,map,setting,profil}) => {
             backgroundColor: '#56ADE7',
             width: '95%',
 <<<<<<< HEAD
+<<<<<<< HEAD
             height: "10%",
             margin: 10,
             marginTop:-5,
@@ -25,16 +26,26 @@ const NavBar = ({home,map,setting,profil}) => {
             marginTop:-5,
            alignItems:'center',
 >>>>>>> OussamaBranch
+=======
+            height: 70,
+            margin: 10,
+            marginTop:-5,
+           alignItems:'center',
+>>>>>>> f94e975 (up)
             padding: 10,
             borderRadius: 20,
             flexDirection: "row", justifyContent: 'space-evenly'
         }}>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             <TouchableOpacity>
 =======
           
 >>>>>>> OussamaBranch
+=======
+          
+>>>>>>> f94e975 (up)
             <Pressable
                 onPress={home}
             >
@@ -45,11 +56,15 @@ const NavBar = ({home,map,setting,profil}) => {
                 />
             </Pressable>
 <<<<<<< HEAD
+<<<<<<< HEAD
             </TouchableOpacity>
             <TouchableOpacity>
 =======
            
 >>>>>>> OussamaBranch
+=======
+           
+>>>>>>> f94e975 (up)
             <Pressable
              onPress={map}
             >
@@ -60,6 +75,7 @@ const NavBar = ({home,map,setting,profil}) => {
                 />
             </Pressable>
 <<<<<<< HEAD
+<<<<<<< HEAD
             </TouchableOpacity>
 
             <TouchableOpacity>
@@ -68,6 +84,11 @@ const NavBar = ({home,map,setting,profil}) => {
 
           
 >>>>>>> OussamaBranch
+=======
+        
+
+          
+>>>>>>> f94e975 (up)
             <Pressable
             
             onPress={setting}>
@@ -77,6 +98,7 @@ const NavBar = ({home,map,setting,profil}) => {
                     resizeMode='contain'
                 />
             </Pressable>
+<<<<<<< HEAD
 <<<<<<< HEAD
             </TouchableOpacity>
             <TouchableOpacity>
@@ -88,6 +110,12 @@ const NavBar = ({home,map,setting,profil}) => {
             <Pressable
                onPress={profil}
 >>>>>>> OussamaBranch
+=======
+           
+            
+            <Pressable
+               onPress={profil}
+>>>>>>> f94e975 (up)
             >
                 <Image
                     source={require('../../../assets/images/Profil.png')}
@@ -96,10 +124,14 @@ const NavBar = ({home,map,setting,profil}) => {
                 />
             </Pressable>
 <<<<<<< HEAD
+<<<<<<< HEAD
             </TouchableOpacity>
 =======
         
 >>>>>>> OussamaBranch
+=======
+        
+>>>>>>> f94e975 (up)
         </View>
     )
 }
@@ -108,6 +140,7 @@ export default NavBar
 
 const styles = StyleSheet.create({
     image: {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         marginTop: 10,
@@ -119,5 +152,12 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         
 >>>>>>> OussamaBranch
+=======
+        width:40,
+        height:40,
+        marginTop: 5,
+        marginLeft: 10,
+        
+>>>>>>> f94e975 (up)
     }
 })
