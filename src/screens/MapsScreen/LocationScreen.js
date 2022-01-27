@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator, Picker,  Dimensions,Linking, Platform } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator, Picker, Dimensions, Linking, Platform } from "react-native";
 
 import CustomButton from "../../components/CustomButton";
 import NavBar from "../../components/Menu/NavBar";
@@ -107,7 +107,7 @@ const LocationScreen = () => {
     const refMarks = useRef();
     const markers = [];
 
-    const [phoneNumber, setPhoneNumbre] = useState(''); 
+    const [phoneNumber, setPhoneNumbre] = useState('');
 
     const onCarouselItemChange = (index) => {
         let location = localisations[index];
@@ -145,7 +145,10 @@ const LocationScreen = () => {
                             /></View>
                     </View>
 
-
+                </View>
+            </View>
+        );
+    }
     const carouselRef = useRef(null);
 
 
@@ -158,15 +161,15 @@ const LocationScreen = () => {
     }
 
     const call = () => {
-     
+
         let Number = '';
 
         if (Platform.OS === 'android') {
-          Number = 'tel:${'+phoneNumber+'}';
+            Number = 'tel:${' + phoneNumber + '}';
         } else {
-          Number = 'telprompt:${'+phoneNumber+'}';
+            Number = 'telprompt:${' + phoneNumber + '}';
         }
-    
+
         Linking.openURL(Number);
     }
 
@@ -202,7 +205,7 @@ const LocationScreen = () => {
 
     return curentPosition.latitude ? (
         <View style={styles.containre}>
-            <Text style={{ marginBottom: 10,marginTop:15,marginLeft:20 }}>Choose the spiciality that you want : </Text>
+            <Text style={{ marginBottom: 10, marginTop: 15, marginLeft: 20 }}>Choose the spiciality that you want : </Text>
             <View style={styles.views}>
 
                 <View style={styles.Border}>

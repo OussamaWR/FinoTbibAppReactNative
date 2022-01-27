@@ -15,52 +15,19 @@ const NavBar = ({home,map,setting,profil}) => {
         <View style={{
             backgroundColor: '#56ADE7',
             width: '95%',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            height: "10%",
-            margin: 10,
-            marginTop:-5,
-=======
             height: 70,
             margin: 10,
             marginTop:-5,
            alignItems:'center',
->>>>>>> OussamaBranch
-=======
-            height: 70,
-            margin: 10,
-            marginTop:-5,
-           alignItems:'center',
->>>>>>> f94e975 (up)
-=======
-            height: 70,
-            margin: 10,
-            marginTop:-5,
-           alignItems:'center',
->>>>>>> OussamaBranch
             padding: 10,
             borderRadius: 20,
             flexDirection: "row", justifyContent: 'space-evenly'
         }}>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <TouchableOpacity>
-=======
-          
->>>>>>> OussamaBranch
-=======
-          
->>>>>>> f94e975 (up)
-            <Pressable
-=======
           
             <TouchableOpacity
             
                 activeOpacity={0.7}
->>>>>>> OussamaBranch
                 onPress={home}
             >
                 <Image
@@ -68,24 +35,9 @@ const NavBar = ({home,map,setting,profil}) => {
                     style={styles.image}
                     resizeMode='contain'
                 />
-<<<<<<< HEAD
-            </Pressable>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            </TouchableOpacity>
-            <TouchableOpacity>
-=======
-           
->>>>>>> OussamaBranch
-=======
-           
->>>>>>> f94e975 (up)
-            <Pressable
-=======
             </TouchableOpacity>
            
             <TouchableOpacity
->>>>>>> OussamaBranch
              onPress={map}
              activeOpacity={0.7}
             >
@@ -94,89 +46,32 @@ const NavBar = ({home,map,setting,profil}) => {
                     style={styles.image}
                     resizeMode='contain'
                 />
-<<<<<<< HEAD
-            </Pressable>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> OussamaBranch
             </TouchableOpacity>
         
 
-<<<<<<< HEAD
-            <TouchableOpacity>
-=======
-        
-
-          
->>>>>>> OussamaBranch
-=======
-        
-
-          
->>>>>>> f94e975 (up)
-            <Pressable
-            
-=======
           
             <TouchableOpacity
              activeOpacity={0.7}
->>>>>>> OussamaBranch
             onPress={setting}>
                 <Image
                     source={require('../../../assets/images/setting.png')}
                     style={styles.image}
                     resizeMode='contain'
                 />
-<<<<<<< HEAD
-            </Pressable>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            </TouchableOpacity>
-            <TouchableOpacity>
-            <Pressable
-             onPress={profil}
-=======
-           
-            
-            <Pressable
-               onPress={profil}
->>>>>>> OussamaBranch
-=======
-           
-            
-            <Pressable
-               onPress={profil}
->>>>>>> f94e975 (up)
-=======
             </TouchableOpacity>
            
             
             <TouchableOpacity
              activeOpacity={0.7}
                onPress={profil}
->>>>>>> OussamaBranch
             >
                 <Image
                     source={require('../../../assets/images/Profil.png')}
                     style={styles.image}
                     resizeMode='contain'
                 />
-<<<<<<< HEAD
-            </Pressable>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            </TouchableOpacity>
-=======
-        
->>>>>>> OussamaBranch
-=======
-        
->>>>>>> f94e975 (up)
-=======
             </TouchableOpacity>
         
->>>>>>> OussamaBranch
         </View>
     )
 }
@@ -185,32 +80,10 @@ export default NavBar
 
 const styles = StyleSheet.create({
     image: {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        marginTop: 10,
-        marginLeft: 10,
-=======
         width:40,
         height:40,
         marginTop: 5,
         marginLeft: 10,
         
->>>>>>> OussamaBranch
-=======
-        width:40,
-        height:40,
-        marginTop: 5,
-        marginLeft: 10,
-        
->>>>>>> f94e975 (up)
-=======
-        width:40,
-        height:40,
-        marginTop: 5,
-        marginLeft: 10,
-        
->>>>>>> OussamaBranch
     }
 })
