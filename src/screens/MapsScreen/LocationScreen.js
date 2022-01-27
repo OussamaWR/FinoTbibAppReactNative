@@ -28,6 +28,12 @@ const initalState = {
 };
 
 
+const initialLoc = [
+    {
+        latitude: null,
+        longitude: null
+    }
+]
 
 
 const LocationScreen = () => {
