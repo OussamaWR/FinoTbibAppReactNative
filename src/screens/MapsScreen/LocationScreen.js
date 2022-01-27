@@ -28,6 +28,12 @@ const initalState = {
 };
 
 
+const initialLoc = [
+    {
+        latitude: null,
+        longitude: null
+    }
+]
 
 
 const LocationScreen = () => {
@@ -49,8 +55,12 @@ const LocationScreen = () => {
             speciality: speciality,
         }
         fetch(
+<<<<<<< HEAD
             //'http://192.168.1.102:8080/Mobile%20API/getLocalisations.php',
             'http://192.168.1.105:80/Mobile%20API/getLocalisations.php',
+=======
+            'http://192.168.1.105:8080/Mobile%20API/getLocalisations.php',
+>>>>>>> main
             {
                 method: 'POST',
                 headers: headers,
@@ -90,8 +100,12 @@ const LocationScreen = () => {
             { timeout: 20000, maximumAge: 1000 }
         );
 
+<<<<<<< HEAD
        // fetch('http://192.168.1.102:8080/Mobile%20API/getSpecialities.php')
         fetch('http://192.168.1.105:80/Mobile%20API/getSpecialities.php')
+=======
+        fetch('http://192.168.1.105:8080/Mobile%20API/getSpecialities.php')
+>>>>>>> main
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(err)) 
@@ -199,7 +213,11 @@ const LocationScreen = () => {
                         }}
                         key={index}
                         ref={ref => markers[index] = ref}
+<<<<<<< HEAD
                        // image={require('../../../assets/images/Mark5.png')}
+=======
+                        // image={require('../../../assets/images/Mark5.png')}
+>>>>>>> main
 
                     >
                         <Callout>

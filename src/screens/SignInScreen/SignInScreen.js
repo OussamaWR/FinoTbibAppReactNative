@@ -41,8 +41,12 @@ const SignInScreen = () => {
                 password: password
             }
             fetch(
+<<<<<<< HEAD
                 'http://192.168.1.105:80/Mobile%20API/login.php',
                 //'http://192.168.1.103:8080/Mobile%20API/login.php',
+=======
+                'http://192.168.1.105:8080/Mobile%20API/login.php',
+>>>>>>> main
                 {
                     method: 'POST',
                     headers: headers,

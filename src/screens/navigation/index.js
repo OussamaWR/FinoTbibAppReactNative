@@ -9,7 +9,7 @@
    import LocationScreen from '../MapsScreen/LocationScreen';
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
-   import WelcomeScreen from '../WelcomeScreen';  
+   import WelcomeScreen from '../WelcomeScreen'; 
    import Setting from '../Setting';
 
     
