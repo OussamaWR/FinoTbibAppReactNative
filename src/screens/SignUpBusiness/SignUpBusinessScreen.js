@@ -71,8 +71,8 @@ const SignUpBusinessScreen = () => {
                 longitude: curentPosition.longitude,
             }
             fetch(
-                // 'http://192.168.1.112:80/mobile-api/createBisAccount.php',
-                'http://192.168.1.102:8080/Mobile%20API/createBisAccount.php',
+                
+                'http://192.168.1.105:8080/Mobile%20API/createBisAccount.php',
                 {
                     method: 'POST',
                     headers: headers,
