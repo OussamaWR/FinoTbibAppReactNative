@@ -5,6 +5,7 @@ import NavBar from './src/components/Menu/NavBar';
 import CustomButton from './src/components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import Setting from './src/screens/Setting';
+import Profile from './src/screens/Profile';
 
 export default function App() {
 
@@ -12,7 +13,7 @@ export default function App() {
     <View  style={{flex:1,width:"100%"}}>
     
       <Navigation/>
-      
+      {/* <Profile/> */}
       {/* <Setting/> */}
     
 

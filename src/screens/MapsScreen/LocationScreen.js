@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator, Alert, Picker, ScrollView, Dimensions } from "react-native";
-import CustomInput from "../../components/CustomInput";
+import { StyleSheet, Text, View, Image, ActivityIndicator, Picker,  Dimensions,Linking, Platform } from "react-native";
+
 import CustomButton from "../../components/CustomButton";
 import NavBar from "../../components/Menu/NavBar";
 import { useNavigation } from '@react-navigation/native';
@@ -38,10 +38,7 @@ const initialLoc = [
 
 const LocationScreen = () => {
 
-    const [latitudes, setLatitudes] = useState([]);
-    const [longitudes, setLongitudes] = useState([]);
     const [localisations, setLocalisations] = useState([]);
-    const [length, setLength] = useState(0);
     const [selectedValue, setSelectedValue] = useState("");
     const [specialities, setSpecialities] = useState([]);
     const [speciality, setSpeciality] = useState('');
@@ -109,6 +106,9 @@ const LocationScreen = () => {
     const mapView = useRef();
     const refMarks = useRef();
     const markers = [];
+
+    const [phoneNumber, setPhoneNumbre] = useState(''); 
+
     const onCarouselItemChange = (index) => {
         let location = localisations[index];
         mapView.current.animateToRegion({
@@ -117,9 +117,13 @@ const LocationScreen = () => {
             latitudeDelta: 0.020,
             longitudeDelta: 0.020,
         })
+        setPhoneNumbre(location.phone);
         markers[index].showCallout();
 
     }
+
+
+
     const carouselRef = useRef(null);
 
 
@@ -132,9 +136,20 @@ const LocationScreen = () => {
     }
 
     const call = () => {
-        // RNImmediatePhoneCall.immediatePhoneCall('0123456789');
-        console.warn("call")
+     
+        let Number = '';
+
+        if (Platform.OS === 'android') {
+          Number = 'tel:${'+phoneNumber+'}';
+        } else {
+          Number = 'telprompt:${'+phoneNumber+'}';
+        }
+    
+        Linking.openURL(Number);
     }
+
+
+
     const _renderItem = ({ item }) => {
         return (
             <View style={styles.carsouls1}>
@@ -209,7 +224,7 @@ const LocationScreen = () => {
                         }}
                         key={index}
                         ref={ref => markers[index] = ref}
-                        // image={require('../../../assets/images/Mark5.png')}
+                        image={require('../../../assets/images/Mark5.png')}
 
                     >
                         <Callout>

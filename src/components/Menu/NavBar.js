@@ -1,6 +1,6 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, View, Image, DevSettings, Touchable } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Pressable, StyleSheet, Text, View, Image, DevSettings, TouchableOpacity } from 'react-native'
+
 // import { useNavigation } from '@react-navigation/native';
 
 
@@ -25,7 +25,9 @@ const NavBar = ({home,map,setting,profil}) => {
         }}>
 
           
-            <Pressable
+            <TouchableOpacity
+            
+                activeOpacity={0.7}
                 onPress={home}
             >
                 <Image
@@ -33,32 +35,34 @@ const NavBar = ({home,map,setting,profil}) => {
                     style={styles.image}
                     resizeMode='contain'
                 />
-            </Pressable>
+            </TouchableOpacity>
            
-            <Pressable
+            <TouchableOpacity
              onPress={map}
+             activeOpacity={0.7}
             >
                 <Image
                     source={require('../../../assets/images/Map.png')}
                     style={styles.image}
                     resizeMode='contain'
                 />
-            </Pressable>
+            </TouchableOpacity>
         
 
           
-            <Pressable
-            
+            <TouchableOpacity
+             activeOpacity={0.7}
             onPress={setting}>
                 <Image
                     source={require('../../../assets/images/setting.png')}
                     style={styles.image}
                     resizeMode='contain'
                 />
-            </Pressable>
+            </TouchableOpacity>
            
             
-            <Pressable
+            <TouchableOpacity
+             activeOpacity={0.7}
                onPress={profil}
             >
                 <Image
@@ -66,7 +70,7 @@ const NavBar = ({home,map,setting,profil}) => {
                     style={styles.image}
                     resizeMode='contain'
                 />
-            </Pressable>
+            </TouchableOpacity>
         
         </View>
     )
