@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native'
 import NavBar from '../../components/Menu/NavBar'
 import CustomInput from '../../components/CustomInput'
@@ -8,10 +8,26 @@ import CustomButton from '../../components/CustomButton'
 
 const Setting = () => {
 
+    //[userInfo,setUserInfo]=useState([])
+
     const navigation = useNavigation();
     const onRegisterPressed=()=>{
         navigation.navigate('HomeClient')
     }
+
+    useEffect(
+        ()=>{
+            fetch('http://192.168.1.105:8080/Mobile%20API/getUserInfo.php')
+            .then(res=>{ console.log(res+'mmmmmm') 
+                return res.json() })
+            .then(
+                res=>{
+                    console.log(res+'nnnnnn')
+                    setFullname('fullname')
+                })
+            .catch(err=>console.warn(err+' c cm m'))
+        }
+    )
 
     const Map=()=>{
         navigation.navigate('Localisation')
@@ -22,7 +38,7 @@ const Setting = () => {
     }
 
 
-    const [fullname, setFullname] = useState();
+    const [fullname, setFullname] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
    
@@ -33,6 +49,7 @@ const Setting = () => {
         >
 
             <ImageBackground source={require('../../../assets/images/Back/Back5.gif')} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
+            {/* <ImageBackground  resizeMode="cover" style={{ width: "100%", height: "100%" }}> */}
                 <View
                     style={{ flexDirection: 'row', marginBottom:130,backgroundColor:'#56ADE7',paddingTop:7, paddingBottom:7 }}
                 >

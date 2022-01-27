@@ -1,8 +1,7 @@
 
-    import React  from 'react'
-    import {Text} from 'react-native'
+    import React from 'react'
     import { NavigationContainer } from '@react-navigation/native';
-    import { createStackNavigator } from '@react-navigation/stack';
+    import { createNativeStackNavigator } from '@react-navigation/native-stack';
     import SignInScreen from '../SignInScreen';
     import SignUpScreen from '../SignUpScreen';
     import ForgetPassword from '../ForgetPassword';
@@ -10,23 +9,14 @@
    import LocationScreen from '../MapsScreen/LocationScreen';
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
-   import WelcomeScreen from '../WelcomeScreen'; 
-<<<<<<< HEAD
-   import NavBar from '../../components/Menu/NavBar';
-=======
-<<<<<<< HEAD
-   import NavBar from '../../components/Menu/NavBar'; 
-=======
+   import WelcomeScreen from '../WelcomeScreen';  
    import Setting from '../Setting';
->>>>>>> 8c92f0f07991ae31d62e42f58467c4ccca65f987
->>>>>>> main
 
     
-    const Stack = createStackNavigator(); 
+    const Stack = createNativeStackNavigator(); 
     const Navigation = () => {
         return (
             <NavigationContainer>
-
             <Stack.Navigator screenOptions={{headerShown:false}}>
             {/* <Stack.Screen name="Menu" component={Drawer} /> */}
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -40,10 +30,9 @@
                 <Stack.Screen  name="Localisation" component={LocationScreen} />
              
             </Stack.Navigator>
-            </NavigationContainer> 
+            </NavigationContainer>
         )
     }
-   
 
-    export  {Navigation};
+    export default Navigation;
     

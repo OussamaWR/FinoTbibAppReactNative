@@ -32,13 +32,11 @@ const initalState = {
 
 const LocationScreen = () => {
 
-    const [latitudes, setLatitudes] = useState([]);
-    const [longitudes, setLongitudes] = useState([]);
     const [localisations, setLocalisations] = useState([]);
-    const [length, setLength] = useState(0);
     const [selectedValue, setSelectedValue] = useState("");
     const [specialities, setSpecialities] = useState([]);
     const [speciality, setSpeciality] = useState('');
+    const [curentPosition, setCurentPosition] = useState(initalState);
 
 
 
@@ -51,7 +49,8 @@ const LocationScreen = () => {
             speciality: speciality,
         }
         fetch(
-            'http://192.168.1.102:8080/Mobile%20API/getLocalisations.php',
+            //'http://192.168.1.102:8080/Mobile%20API/getLocalisations.php',
+            'http://192.168.1.105:80/Mobile%20API/getLocalisations.php',
             {
                 method: 'POST',
                 headers: headers,
@@ -64,7 +63,7 @@ const LocationScreen = () => {
                 console.log("a9a 9a 9a 9a9aaaaaaaaa", localisations);
             })
             .catch(err => {
-                console.log(err)
+                console.log(err) 
             })
 
 
@@ -79,7 +78,7 @@ const LocationScreen = () => {
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                // alert(JSON.stringify(position));
+                //alert(JSON.stringify(position));
                 const { longitude, latitude } = position.coords;
                 setCurentPosition({
                     ...curentPosition,
@@ -91,12 +90,11 @@ const LocationScreen = () => {
             { timeout: 20000, maximumAge: 1000 }
         );
 
-        fetch('http://192.168.1.102:8080/Mobile%20API/getSpecialities.php')
+       // fetch('http://192.168.1.102:8080/Mobile%20API/getSpecialities.php')
+        fetch('http://192.168.1.105:80/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
-            .catch(err => console.warn(err))
-
-
+            .catch(err => console.warn(err)) 
     }, [])
 
 
@@ -155,7 +153,6 @@ const LocationScreen = () => {
     }
 
 
-    const [curentPosition, setCurentPosition] = useState(initalState);
 
     return curentPosition.latitude ? (
         <View style={styles.containre}>
@@ -201,12 +198,9 @@ const LocationScreen = () => {
                             longitude: Number(loca.longitude),
                         }}
                         key={index}
-<<<<<<< HEAD
-=======
                         ref={ref => markers[index] = ref}
-                        image={require('../../../assets/images/Mark5.png')}
+                       // image={require('../../../assets/images/Mark5.png')}
 
->>>>>>> main
                     >
                         <Callout>
                             <Text style={{ fontSize: 15, marginBottom: 5, textAlign: 'center', fontWeight: 'bold' }}>{loca.fullname}</Text>
@@ -290,7 +284,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
 
-    },
+    }, 
     carsouls1: {
 
         width: "85%",

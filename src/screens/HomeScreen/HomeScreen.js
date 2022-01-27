@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import * as React from 'react';
-import { Text, View } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-// import {
-//     createDrawerNavigator,
-//     DrawerContentScrollView,
-//     DrawerItemList,
-//     DrawerItem,
-//   } from '@react-navigation/drawer';
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-=======
 import React from 'react'
 import { StyleSheet, Text, View ,ImageBackground} from 'react-native'
 import NavBar from '../../components/Menu/NavBar'
@@ -63,7 +43,6 @@ const HomeScreen = () => {
           </ImageBackground>
         </View>
     )
->>>>>>> main
 }
 
 export default HomeScreen;

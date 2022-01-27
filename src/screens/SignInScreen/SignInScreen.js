@@ -12,12 +12,20 @@ const SignInScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const Navigation = useNavigation();
-
+    const [reviwes,setReviews]=useState([]) 
+    const FetchReviews = () => {
+       fetch('http://localhost:8000/api/reviews')
+       //fetch('http://192.168.1.105:80/api/reviews')
+        .then(res=>res.json())
+        .then(res=>Alert.alert('Reviews', JSON.stringify(res) ))
+        //.catch(err=>Alert.alert('Error', JSON.stringify(err) ))
+        .catch(err=>console.warn(err)) 
+    }  
 
 
     const onSignUpPressed = () => {
-        // Navigation.navigate("SignUp");
-        Navigation.navigate("HomeClient");
+        Navigation.navigate("SignUp");
+        //Navigation.navigate("HomeClient");
     }
 
     const onSignInPressed = () => {
@@ -33,7 +41,7 @@ const SignInScreen = () => {
                 password: password
             }
             fetch(
-                'http://192.168.1.112:80/mobile-api/login.php',
+                'http://192.168.1.105:80/Mobile%20API/login.php',
                 //'http://192.168.1.103:8080/Mobile%20API/login.php',
                 {
                     method: 'POST',
@@ -104,6 +112,7 @@ const SignInScreen = () => {
                         <Text style={{ marginTop: 20 }} > Don't have an account ?  </Text>
                         <CustomButton text1="Create Client Account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
                         <CustomButton text1="Create Doctor account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />
+                        <CustomButton text1="Fetch Reviews" onPress={FetchReviews} bgColor="#C7F9BE" fgColor="#167C05" /> 
                     </View>
                 </View>
 
