@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator, Alert, Picker, ScrollView, Dimensions } from "react-native";
-import CustomInput from "../../components/CustomInput";
+import { StyleSheet, Text, View, Image, ActivityIndicator, Picker,  Dimensions,Linking, Platform } from "react-native";
+
 import CustomButton from "../../components/CustomButton";
 import NavBar from "../../components/Menu/NavBar";
 import { useNavigation } from '@react-navigation/native';
@@ -105,6 +105,9 @@ const LocationScreen = () => {
     const mapView = useRef();
     const refMarks = useRef();
     const markers = [];
+
+    const [phoneNumber, setPhoneNumbre] = useState(''); 
+
     const onCarouselItemChange = (index) => {
         let location = localisations[index];
         mapView.current.animateToRegion({
@@ -113,9 +116,35 @@ const LocationScreen = () => {
             latitudeDelta: 0.020,
             longitudeDelta: 0.020,
         })
+        setPhoneNumbre(location.phone);
         markers[index].showCallout();
 
     }
+
+    const call = () => {
+        // RNImmediatePhoneCall.immediatePhoneCall('0123456789');
+        console.warn("call")
+    }
+    const _renderItem = ({ item }) => {
+        return (
+            <View style={styles.carsouls1}>
+                <View style={{ width: '100%', backgroundColor: 'black', borderTopLeftRadius: 30, borderTopRightRadius: 30, alignItems: 'center', paddingTop: 5, paddingBottom: 5 }}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#fff' }}>{item.fullname}</Text></View>
+                <View style={styles.carsouls}>
+                    <Image source={require('../../../assets/images/doctor.png')} style={{ height: 70, width: 70 }} />
+                    <View style={{ alignItems: 'center' }}>
+
+                        <Text style={{ color: 'white' }}>{item.description}</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }} >Review : 8.5/10</Text>
+                        <View style={{ width: '70%' }}>
+                            <CustomButton
+                                text1={'Call'}
+                                bgColor={'#0EC315'}
+                                onPress={call}
+                            /></View>
+                    </View>
+
+
     const carouselRef = useRef(null);
 
 
@@ -128,9 +157,20 @@ const LocationScreen = () => {
     }
 
     const call = () => {
-        // RNImmediatePhoneCall.immediatePhoneCall('0123456789');
-        console.warn("call")
+     
+        let Number = '';
+
+        if (Platform.OS === 'android') {
+          Number = 'tel:${'+phoneNumber+'}';
+        } else {
+          Number = 'telprompt:${'+phoneNumber+'}';
+        }
+    
+        Linking.openURL(Number);
     }
+
+
+
     const _renderItem = ({ item }) => {
         return (
             <View style={styles.carsouls1}>
