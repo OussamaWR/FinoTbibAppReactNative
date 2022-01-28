@@ -1,19 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View ,ImageBackground} from 'react-native'
+import { StyleSheet, Text, View ,ImageBackground, Alert} from 'react-native'
 import NavBar from '../../components/Menu/NavBar'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
-    
-    
-    
     
     
     const Navigation = useNavigation();
 
    
 
-    const Map=()=>{
+    const Map =  ()=>{
       Navigation.navigate("Localisation");
     }
 

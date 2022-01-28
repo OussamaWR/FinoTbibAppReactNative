@@ -3,6 +3,7 @@ import { View, Text, Image, Alert, StyleSheet, useWindowDimensions, ScrollView }
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = () => { 
@@ -12,15 +13,7 @@ const SignInScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const Navigation = useNavigation();
-    const [reviwes,setReviews]=useState([]) 
-    const FetchReviews = () => {
-       fetch('http://localhost:8000/api/reviews')
-       //fetch('http://192.168.1.105:80/api/reviews')
-        .then(res=>res.json())
-        .then(res=>Alert.alert('Reviews', JSON.stringify(res) ))
-        //.catch(err=>Alert.alert('Error', JSON.stringify(err) ))
-        .catch(err=>console.warn(err)) 
-    }  
+    
 
 
     const onSignUpPressed = () => {
@@ -41,27 +34,27 @@ const SignInScreen = () => {
                 password: password
             }
             fetch(
-<<<<<<< HEAD
+                //'http://192.168.1.105:8080/Mobile%20API/login.php',
                 'http://192.168.1.105:80/Mobile%20API/login.php',
-                //'http://192.168.1.103:8080/Mobile%20API/login.php',
-=======
-                'http://192.168.1.105:8080/Mobile%20API/login.php',
->>>>>>> main
                 {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
                 }
             )
-                .then( Response => Response.text() )
+                .then( Response => Response.json() )
                 .then((Response) => {
-                    if (Response === "Login Client succesfully !") {
+                    AsyncStorage.setItem('user',JSON.stringify({
+                        fullname:Response[1],
+                        email:Response[2],
+                        phone:Response[3]
+                    })).then(()=>{
                         setEmail('')
                         setPassword('')
+                    }).catch(err=>console.log(err))
+                    if (Response[5] === "client") {
                         Navigation.navigate("HomeClient")
-                    }else if(Response === "Login Doctor succesfully !"){
-                        setEmail('')
-                        setPassword('')
+                    }else if(Response[5] === "doctor"){
                         Navigation.navigate("HomeDoctor")
                     }
                     else{
@@ -69,7 +62,7 @@ const SignInScreen = () => {
                     }
                 }) 
                 .catch((error) => {
-                    console.error("ERROR FOUND" + error);
+                    console.error("ERROR FOUND" + JSON.stringify(error));
                 })
         }
     }
@@ -108,7 +101,6 @@ const SignInScreen = () => {
                             placeholder="Password"
                             value={password}
                             setValue={setPassword}
-
                         />
 
                         <CustomButton text1="Sign In" onPress={onSignInPressed} />
@@ -116,7 +108,6 @@ const SignInScreen = () => {
                         <Text style={{ marginTop: 20 }} > Don't have an account ?  </Text>
                         <CustomButton text1="Create Client Account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
                         <CustomButton text1="Create Doctor account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />
-                        <CustomButton text1="Fetch Reviews" onPress={FetchReviews} bgColor="#C7F9BE" fgColor="#167C05" /> 
                     </View>
                 </View>
 
@@ -130,7 +121,6 @@ const styles = StyleSheet.create({
         width: '50%',
         maxHeight: 200,
         maxWidth: 200,
-
     },
     root: {
 
