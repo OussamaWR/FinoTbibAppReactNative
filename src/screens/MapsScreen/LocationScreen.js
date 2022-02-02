@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { StyleSheet, Text, View, Image, ActivityIndicator, Picker,  Dimensions,Linking, Platform } from "react-native";
+=======
+import { StyleSheet, Text, View, Image, ActivityIndicator, Picker, Dimensions, Linking, Platform } from "react-native";
+>>>>>>> mouadBranch
 
 import CustomButton from "../../components/CustomButton";
 import NavBar from "../../components/Menu/NavBar";
@@ -42,7 +46,6 @@ const LocationScreen = () => {
     const [selectedValue, setSelectedValue] = useState("");
     const [specialities, setSpecialities] = useState([]);
     const [speciality, setSpeciality] = useState('');
-    const [curentPosition, setCurentPosition] = useState(initalState);
 
 
 
@@ -68,7 +71,7 @@ const LocationScreen = () => {
                 console.log("a9a 9a 9a 9a9aaaaaaaaa", localisations);
             })
             .catch(err => {
-                console.log(err) 
+                console.log(err)
             })
 
 
@@ -83,7 +86,7 @@ const LocationScreen = () => {
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                //alert(JSON.stringify(position));
+                // alert(JSON.stringify(position));
                 const { longitude, latitude } = position.coords;
                 setCurentPosition({
                     ...curentPosition,
@@ -98,7 +101,9 @@ const LocationScreen = () => {
         fetch('http://192.168.1.105:80/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
-            .catch(err => console.warn(err)) 
+            .catch(err => console.warn(err))
+
+
     }, [])
 
 
@@ -106,7 +111,11 @@ const LocationScreen = () => {
     const refMarks = useRef();
     const markers = [];
 
+<<<<<<< HEAD
     const [phoneNumber, setPhoneNumbre] = useState(''); 
+=======
+    const [phoneNumber, setPhoneNumbre] = useState('');
+>>>>>>> mouadBranch
 
     const onCarouselItemChange = (index) => {
         let location = localisations[index];
@@ -120,6 +129,7 @@ const LocationScreen = () => {
         markers[index].showCallout();
 
     }
+<<<<<<< HEAD
 
     const call = () => {
         // RNImmediatePhoneCall.immediatePhoneCall('0123456789');
@@ -171,6 +181,10 @@ const LocationScreen = () => {
 
 
 
+=======
+
+   
+>>>>>>> mouadBranch
     const _renderItem = ({ item }) => {
         return (
             <View style={styles.carsouls1}>
@@ -189,152 +203,182 @@ const LocationScreen = () => {
                                 onPress={call}
                             /></View>
                     </View>
-
-
                 </View>
             </View>
-        );
+        )
     }
 
 
+        const carouselRef = useRef(null);
 
-    return curentPosition.latitude ? (
-        <View style={styles.containre}>
-            <Text style={{ marginBottom: 10,marginTop:15,marginLeft:20 }}>Choose the spiciality that you want : </Text>
-            <View style={styles.views}>
 
-                <View style={styles.Border}>
+        const Navigation = useNavigation();
+        const HomePress = () => {
+            Navigation.navigate("HomeClient");
+        }
+        const Setting = () => {
+            Navigation.navigate("Setting");
+        }
 
-                    <Picker
-                        selectedValue={selectedValue}
-                        style={{ height: 40, width: "100%", }}
-                        onValueChange={(itemValue) => {
-                            setSpeciality(itemValue)
-                            setSelectedValue(itemValue)
-                        }}
-                    >
-                        {specialities.map(spe => <Picker.Item label={spe} key={spe} value={spe} />)}
-                    </Picker>
+        const call = () => {
 
+            let Number = '';
+
+            if (Platform.OS === 'android') {
+                Number = 'tel:${' + phoneNumber + '}';
+            } else {
+                Number = 'telprompt:${' + phoneNumber + '}';
+            }
+
+            Linking.openURL(Number);
+        }
+
+
+
+
+
+        const [curentPosition, setCurentPosition] = useState(initalState);
+
+        return curentPosition.latitude ? (
+            <View style={styles.containre}>
+                <Text style={{ marginBottom: 10, marginTop: 15, marginLeft: 20 }}>Choose the spiciality that you want : </Text>
+                <View style={styles.views}>
+
+                    <View style={styles.Border}>
+
+                        <Picker
+                            selectedValue={selectedValue}
+                            style={{ height: 40, width: "100%", }}
+                            onValueChange={(itemValue) => {
+                                setSpeciality(itemValue)
+                                setSelectedValue(itemValue)
+                            }}
+                        >
+                            {specialities.map(spe => <Picker.Item label={spe} key={spe} value={spe} />)}
+                        </Picker>
+
+                    </View>
+                    <View style={{ width: '20%', marginTop: -10, marginLeft: 15 }}>
+                        <CustomButton
+                            text1={'GET'}
+                            onPress={get}
+                        />
+                    </View>
                 </View>
-                <View style={{ width: '20%', marginTop: -10, marginLeft: 15 }}>
-                    <CustomButton
-                        text1={'GET'}
-                        onPress={get}
+                <MapView
+                    ref={mapView}
+                    provider={PROVIDER_GOOGLE}
+                    style={{ height: "60%" }}
+                    showsUserLocation={true}
+                    followsUserLocation={true}
+                    rotateEnabled={true}
+                    zoomEnabled={true}
+                    // toolbarEnabled={true}
+                    initialRegion={curentPosition}
+                >
+
+                    {localisations.map((loca, index) =>
+                        <Marker
+                            coordinate={{
+                                latitude: Number(loca.latitude),
+                                longitude: Number(loca.longitude),
+                            }}
+                            key={index}
+                            ref={ref => markers[index] = ref}
+                            image={require('../../../assets/images/Mark5.png')}
+
+                        >
+                            <Callout>
+                                <Text style={{ fontSize: 15, marginBottom: 5, textAlign: 'center', fontWeight: 'bold' }}>{loca.fullname}</Text>
+                            </Callout>
+
+
+                        </Marker>)
+                    }
+
+
+
+                    <Circle
+                        center={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
+                        radius={1000}
+                        fillColor={"rgba(100,10,20,0.2)"}
                     />
-                </View>
-            </View> 
-            <MapView
-                ref={mapView}
-                provider={PROVIDER_GOOGLE}
-                style={{ height: "50%" }}
-                showsUserLocation={true}
-                followsUserLocation={true}
-                rotateEnabled={true}
-                zoomEnabled={true}
-                initialRegion={curentPosition}
-            >
-
-                {localisations.map((loca, index) =>
-                    <Marker
-                        coordinate={{
-                            latitude: Number(loca.latitude),
-                            longitude: Number(loca.longitude),
-                        }}
-                        key={index}
-                        ref={ref => markers[index] = ref}
-                        image={require('../../../assets/images/Mark5.png')}
-
-                    >
-                        <Callout>
-                            <Text style={{ fontSize: 15, marginBottom: 5, textAlign: 'center', fontWeight: 'bold' }}>{loca.fullname}</Text>
-                        </Callout>
+                </MapView>
 
 
-                    </Marker>)
-                }
+                <Carousel
+                    ref={carouselRef}
 
-
-                <Circle
-                    center={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
-                    radius={1000}
-                    fillColor={"rgba(100,10,20,0.2)"}
+                    data={localisations}
+                    renderItem={_renderItem}
+                    sliderWidth={Dimensions.get('window').width}
+                    itemWidth={300}
+                    onSnapToItem={(index) => onCarouselItemChange(index)}
                 />
-            </MapView>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'flex-end',
 
 
-            <Carousel
-                ref={carouselRef}
-
-                data={localisations}
-                renderItem={_renderItem}
-                sliderWidth={Dimensions.get('window').width}
-                itemWidth={300}
-                onSnapToItem={(index) => onCarouselItemChange(index)}
-            />
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'flex-end',
+                    }}
+                ></View>
 
 
-                }}
-            ></View>
+                <NavBar
+                    home={HomePress}
+                    setting={Setting}
+                ></NavBar>
 
+            </View>
+        ) : (
+            <ActivityIndicator style={{ flex: 1 }} animating size="large" />
+        );
+    };
 
-            <NavBar
-                home={HomePress}
-                setting={Setting}
-            ></NavBar>
+    export default LocationScreen;
 
-        </View>
+    const styles = StyleSheet.create({
+        containre: {
+            flex: 1,
+        },
+        views: {
+            marginBottom: 5,
+            marginHorizontal: 20,
+            marginTop: 5,
+            flexDirection: 'row'
+        },
+        Border: {
+            borderColor: "#293772",
+            borderWidth: 1.75,
+            width: "65%",
+            height: 45,
+            borderRadius: 15,
+            // marginBottom: 0,
+            // paddingHorizontal: 20,
+            backgroundColor: "#F9FBFF"
+        }
+        ,
+        image: {
+            width: 120,
+            height: 80,
 
-    ) : <Text >Failed</Text>
-};
+        }
+        , carsouls: {
+            paddingTop: 7,
+            flexDirection: 'row',
+            backgroundColor: '#007a87',
+            width: '100%',
+            borderBottomLeftRadius: 30,
+            borderBottomRightRadius: 30,
 
-export default LocationScreen;
+        },
+        carsouls1: {
 
-const styles = StyleSheet.create({
-    containre: {
-        flex: 1,
-    },
-    views: {
-        marginBottom: 5,
-        marginHorizontal: 20,
-        marginTop: 5,
-        flexDirection: 'row'
-    },
-    Border: {
-        borderColor: "#293772",
-        borderWidth: 1.75,
-        width: "65%",
-        height: 45,
-        borderRadius: 15,
-        // marginBottom: 0,
-        // paddingHorizontal: 20,
-        backgroundColor: "#F9FBFF"
-    }
-    ,
-    image: {
-        width: 120,
-        height: 80,
+            width: "85%",
 
-    }
-    , carsouls: {
-        paddingTop: 7,
-        flexDirection: 'row',
-        backgroundColor: '#007a87',
-        width: '100%',
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
+            alignItems: 'center',
+            marginTop: 10,
+        }
 
-    }, 
-    carsouls1: {
-
-        width: "85%",
-
-        alignItems: 'center',
-        marginTop: 10,
-    }
-
-});
+    });
