@@ -25,10 +25,10 @@ const ForgetPassword = () => {
                 {
                     method: 'POST',
                     headers: headers,
-                    body: JSON.stringify(data) 
+                    body: JSON.stringify(data)  
                 }
             )
-                .then( Response => Response.text() )
+                .then( Response => Response.text() ) 
                 .then( Response => {
                     if(Response==='The email you entred does not exist !'){
                         Alert.alert('Error',Response)

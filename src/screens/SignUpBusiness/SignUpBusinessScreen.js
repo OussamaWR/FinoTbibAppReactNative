@@ -27,14 +27,11 @@ const SignUpBusinessScreen = () => {
 
 
     useEffect(() => {
-        fetch('http://192.168.1.102:8080/Mobile%20API/getSpecialities.php')
+        fetch('http://192.168.1.105:80/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
-            .catch(err => console.warn(err))
-    }, [])
+            .catch(err => console.warn(`specialities error : ${err}`))
 
-
-    useEffect(() => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 //alert(JSON.stringify(position));
@@ -48,8 +45,11 @@ const SignUpBusinessScreen = () => {
             (error) => alert(error.message),
             { timeout: 20000, maximumAge: 1000 }
         );
-    }, []);
 
+    }, [])
+
+
+ 
 
     const onRegisterPressed = () => {
         if (fullname == '' || email == '' || password == '' || passwordRepeat == '' || phone == '') {
@@ -94,7 +94,7 @@ const SignUpBusinessScreen = () => {
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(`register error : ${err}`)
                 })
         }
     }
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         fontWeight: 'bold',
         color: "#041C60"
+
     },
     root: {
 
