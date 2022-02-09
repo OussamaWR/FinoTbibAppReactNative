@@ -11,7 +11,7 @@ import MapView, {
     Marker,
     Callout,
     Circle,
-} from "react-native-maps";
+} from "react-native-maps"; 
 
 
 navigator.geolocation = require("@react-native-community/geolocation");
@@ -54,7 +54,7 @@ const LocationScreen = () => {
             speciality: speciality,
         }
         fetch(
-            'http://192.168.1.105:80/Mobile%20API/getLocalisations.php',
+            'http://192.168.1.112:80/Mobile%20API/getLocalisations.php',
             {
                 method: 'POST',
                 headers: headers,
@@ -64,7 +64,7 @@ const LocationScreen = () => {
             .then(res => res.json())
             .then(res => {
                 setLocalisations(res)
-                console.log("a9a 9a 9a 9a9aaaaaaaaa", localisations);
+                console.log( localisations);
             })
             .catch(err => {
                 console.log(err)
@@ -94,7 +94,7 @@ const LocationScreen = () => {
             { timeout: 20000, maximumAge: 1000 }
         );
 
-        fetch('http://192.168.1.105:80/Mobile%20API/getSpecialities.php')
+        fetch('http://192.168.1.112:80/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(err))
@@ -206,7 +206,7 @@ const LocationScreen = () => {
                 <MapView
                     ref={mapView}
                     provider={PROVIDER_GOOGLE}
-                    style={{ height: "60%" }}
+                    style={{ height: "52%" }}
                     showsUserLocation={true}
                     followsUserLocation={true}
                     rotateEnabled={true}

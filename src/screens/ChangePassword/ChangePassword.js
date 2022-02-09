@@ -3,32 +3,36 @@ import { View, Text ,Image,Alert , StyleSheet, useWindowDimensions,ScrollView} f
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-const ForgetPassword = () => {
+const ChangePassword = () => {
     const navigation=useNavigation();
    
-    const [email,setEmail]=useState('');
+    const [oldPassword,setOldPassword]=useState('');
+    const [newPassword,setNewPassword]=useState('');
+    const [newPasswordConfirm,setNewPasswordConfirm]=useState('');
 
     const onConfirmPressed = () => {
-         if (email == '') {
-            Alert.alert('Error', 'you should fill Email field !')
+         if (oldPassword == '' || newPassword == '' || newPasswordConfirm == ''  ) {
+            Alert.alert('Error', 'you should fill All fields !')
         } else {
             let headers = {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
             let data = {
-                email: email,
+                oldPassword,
+                newPassword,
+                newPasswordConfirm
             }
             fetch(
-                //'http://10.0.2.2:80/mobile-api/createAccount.php',
-                'http://192.168.1.112:80/mobile-api/resetPassword.php',
+                
+                'http://192.168.1.112:80/Mobile%20API/changePassword.php',
                 {
                     method: 'POST',
                     headers: headers,
-                    body: JSON.stringify(data) 
+                    body: JSON.stringify(data)  
                 }
             )
-                .then( Response => Response.text() )
+                .then( Response => Response.text() ) 
                 .then( Response => {
                     if(Response==='The email you entred does not exist !'){
                         Alert.alert('Error',Response)
@@ -50,16 +54,30 @@ const ForgetPassword = () => {
     return (
 <View style={{width:"100%",backgroundColor:"#56ADE7"}}>
         <View style ={styles.container}>
-          <Text style={styles.title}> Reset your Password  : </Text>
+          <Text style={styles.title}> Change your Password  : </Text>
           <View style={{marginHorizontal:28}}>
-          <Text style={{marginLeft:10}}> Email * </Text>
+          <Text style={{marginLeft:10}}> Old Password * </Text>
             <CustomInput 
-                value={email}
-                setValue={setEmail}
+                value={oldPassword}
+                setValue={setOldPassword}
                 secureTextEntry={false}
-                placeholder={'Enter your Email '}
-                
+                placeholder={'Enter old password '}  
             />
+            <Text style={{marginLeft:10}}> New Password * </Text>
+            <CustomInput 
+                value={newPassword}
+                setValue={setNewPassword}
+                secureTextEntry={false}
+                placeholder={'Enter new password '}  
+            />
+            <Text style={{marginLeft:10}}> Confirm New Password * </Text>
+            <CustomInput 
+                value={newPasswordConfirm}
+                setValue={setNewPasswordConfirm}
+                secureTextEntry={false}
+                placeholder={'Confirm new password'}  
+            />
+
             <CustomButton
             text1={"Confirm"}
             fgColor={'white'}
@@ -69,11 +87,7 @@ const ForgetPassword = () => {
 
              
 
-             <CustomButton
-            text1={"Back on Sign In"}
-            type='TERTIARY'
-            onPress={onBackSignIn}
-            ></CustomButton>
+          
             </View>
         </View></View>
     )
@@ -100,4 +114,4 @@ const styles= StyleSheet.create({
     }
 
 });
-export default ForgetPassword;
+export default ChangePassword;
