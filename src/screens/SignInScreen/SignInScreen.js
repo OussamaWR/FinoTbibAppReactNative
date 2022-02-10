@@ -3,6 +3,7 @@ import { View, Text, Image, Alert, StyleSheet, useWindowDimensions, ScrollView }
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = () => { 
@@ -12,12 +13,12 @@ const SignInScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const Navigation = useNavigation();
-
+    
 
 
     const onSignUpPressed = () => {
-        // Navigation.navigate("SignUp");
-        Navigation.navigate("HomeClient");
+        Navigation.navigate("SignUp");
+        //Navigation.navigate("HomeClient");
     }
 
     const onSignInPressed = () => {
@@ -34,29 +35,35 @@ const SignInScreen = () => {
             }
             fetch(
                 'http://192.168.1.105:8080/Mobile%20API/login.php',
+                // 'http://192.168.1.105:80/Mobile%20API/login.php',
                 {
                     method: 'POST',
                     headers: headers,
                     body: JSON.stringify(data)
                 }
             )
-                .then( Response => Response.text() )
+           
+                .then( Response => Response.json() )
                 .then((Response) => {
-                    if (Response === "Login Client succesfully !") {
+                    AsyncStorage.setItem('user',JSON.stringify({
+                        fullname:Response[1],
+                        email:Response[2],
+                        phone:Response[3]
+                    })).then(()=>{
                         setEmail('')
                         setPassword('')
-                        Navigation.navigate("Localisation")
-                    }else if(Response === "Login Doctor succesfully !"){
-                        setEmail('')
-                        setPassword('')
-                        Navigation.navigate("Localisation")
+                    }).catch(err=>console.log(err))
+                    if (Response[5] === "client") {
+                        Navigation.navigate("HomeClient")
+                    }else if(Response[5] === "doctor"){
+                        Navigation.navigate("HomeDoctor")
                     }
                     else{
                         Alert.alert('Login Faild', 'Username or password incorrect ! ')
                     }
                 }) 
                 .catch((error) => {
-                    console.error("ERROR FOUND" + error);
+                    console.error("ERROR FOUND" + JSON.stringify(error));
                 })
         }
     }
@@ -67,13 +74,7 @@ const SignInScreen = () => {
     const onSignUpbisPressed = () => {
         Navigation.navigate("SignUpBis")
     }
-    const onTest=()=>{
-        Navigation.navigate("Localisation")
-    }
-
-    const onMapPressed = () => {
-        Navigation.navigate("Localisation")
-    }
+   
 
 
     return (
@@ -101,7 +102,6 @@ const SignInScreen = () => {
                             placeholder="Password"
                             value={password}
                             setValue={setPassword}
-
                         />
 
                         <CustomButton text1="Sign In" onPress={onSignInPressed} />
@@ -122,13 +122,11 @@ const styles = StyleSheet.create({
         width: '50%',
         maxHeight: 200,
         maxWidth: 200,
-
     },
     root: {
 
         backgroundColor: '#56ADE7',
         width: '100%',
-        //padding:50,
         alignItems: 'center'
     },
 

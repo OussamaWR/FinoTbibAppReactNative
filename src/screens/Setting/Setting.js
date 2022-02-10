@@ -1,17 +1,69 @@
-import React from 'react'
-import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native'
+import React, { useEffect } from 'react'
+import { StyleSheet, Text, View,Alert, ImageBackground, Image } from 'react-native'
 import NavBar from '../../components/Menu/NavBar'
 import CustomInput from '../../components/CustomInput'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CustomButton from '../../components/CustomButton'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Setting = () => {
 
+    const [fullname,setFullname]=useState('')
+    const [email,setEmail]=useState('')
+    const [phone,setPhone]=useState('')
+
+ 
+
+
+    useEffect( async () => { 
+        try{
+            const userData = await AsyncStorage.getItem('user')
+            let userDataParsed=JSON.parse(userData)
+            setFullname(userDataParsed.fullname)
+            setEmail(userDataParsed.email)
+            setPhone(userDataParsed.phone) 
+        }catch(err){
+            Alert.alert('err',JSON.parse(err)) 
+        } 
+    },[]) 
+
     const navigation = useNavigation();
-    const onRegisterPressed=()=>{
-        navigation.navigate('HomeClient')
+
+    const onUpdatePressed=()=>{
+        if (email == '' || fullname == '' || phone=='' ) {
+            Alert.alert('Error', 'you should fill all fields !')
+        }else{
+            fetch(
+                'http://192.168.1.105:8080/Mobile%20API/updateUser.php',
+                {
+                    method: 'POST',
+                    headers: {
+                        "Accept":"application/json",
+                        "Content-Type":"application/json"
+                    },
+                    body : JSON.stringify(
+                        {
+                            fullname,
+                            ail,
+                            phoemne
+                        }
+                    )
+                }
+                )
+                .then(res=>res.text())
+                .then(res => {
+                    Alert.alert('Success',res)
+                })
+                .catch(err=>console.warn(err))
+        }
     }
+
+    const onLogOutPressed = () => {
+        AsyncStorage.clear()
+        .then(()=> navigation.navigate('SignIn') )
+        .catch(err=>console.log(err))
+    }
+
 
     const Map=()=>{
         navigation.navigate('Localisation')
@@ -22,9 +74,7 @@ const Setting = () => {
     }
 
 
-    const [fullname, setFullname] = useState();
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
+  
    
 
 
@@ -33,6 +83,7 @@ const Setting = () => {
         >
 
             <ImageBackground source={require('../../../assets/images/Back/Back5.gif')} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
+            {/* <ImageBackground  resizeMode="cover" style={{ width: "100%", height: "100%" }}> */}
                 <View
                     style={{ flexDirection: 'row', marginBottom:130,backgroundColor:'#56ADE7',paddingTop:7, paddingBottom:7 }}
                 >
@@ -66,7 +117,7 @@ const Setting = () => {
                     />
                 </View>
 
-                <View style={styles.Views}>
+                { <View style={styles.Views}>
                     <Text style={styles.Texts} >      Phone* </Text>
                     <CustomInput
                         secureTextEntry={false}
@@ -75,10 +126,11 @@ const Setting = () => {
                         setValue={setPhone}
                         keyBaordTypeInput={'numeric'}
                     />
-                </View>
+                </View> }
                 
                 <View style={{alignItems:'center',width:"50%",marginLeft:120,}}>
-                <CustomButton text1="Save" onPress={onRegisterPressed}  fgColor={'#FFFFFF'} />
+                <CustomButton text1="Save" onPress={onUpdatePressed}  fgColor={'#FFFFFF'} />
+                <CustomButton text1="LogOut" onPress={onLogOutPressed}  fgColor={'#FFFFFF'} />
                 </View>
                
 
