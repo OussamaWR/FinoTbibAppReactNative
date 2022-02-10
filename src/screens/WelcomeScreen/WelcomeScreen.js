@@ -37,7 +37,7 @@ const WelcomeScreen = () => {
                                <Pressable style={{backgroundColor:'black',width:"65%",borderRadius:7,flexDirection:'row',padding:10,justifyContent:'space-between'}} onPress={onStartPressed}>  
 
                                    <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}> Let's Begin   </Text>
-                                   <Image source={require('../../../assets/images/right.png') } style={{width:20,height:20,marginTop:2}}></Image>
+                                   <Image source={require('../../../assets/images/right.png') } style={{width:10,height:20,marginTop:2}}></Image>
                                </Pressable>
                            
                         </View>
