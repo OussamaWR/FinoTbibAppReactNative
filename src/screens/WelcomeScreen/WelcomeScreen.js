@@ -32,12 +32,12 @@ const WelcomeScreen = () => {
                         resizeMode='contain'
                     />
                      <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', paddingTop: 3,marginBottom:120 }} > FinoTbib </Text>
-                     <Text style={{color:'white' , textAlign:'center',fontSize:15,marginBottom:20}}>L'application 'FinoTbib'  permet de decouvrir et de trouver les docteurs les  plus proche de vous ça dépend le genre de maladie</Text>
+                     <Text style={{color:'white' , textAlign:'center',fontSize:15,marginBottom:20}}>L'application 'FinoTbib'  permet de decouvrir et de trouver les docteurs les  plus proches de vous en fonction de votre maladie</Text>
                            
-                               <Pressable style={{backgroundColor:'black',width:"65%",borderRadius:7,flexDirection:'row',padding:10,justifyContent:'space-between'}} onPress={onStartPressed}>
+                               <Pressable style={{backgroundColor:'black',width:"65%",borderRadius:7,flexDirection:'row',padding:10,justifyContent:'space-between'}} onPress={onStartPressed}>  
 
-                                   <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>Let's Begin   </Text>
-                                   <Image source={require('../../../assets/images/right.png') } style={{width:20,height:20,marginTop:2}}></Image>
+                                   <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}> Let's Begin   </Text>
+                                   <Image source={require('../../../assets/images/right.png') } style={{width:10,height:20,marginTop:2}}></Image>
                                </Pressable>
                            
                         </View>

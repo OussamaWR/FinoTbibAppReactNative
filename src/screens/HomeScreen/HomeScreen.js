@@ -1,53 +1,239 @@
-import React from 'react'
-import { StyleSheet, Text, View ,ImageBackground} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, Modal, Pressable, Image, View, ScrollView, TextInput, SafeAreaView, Alert } from 'react-native'
 import NavBar from '../../components/Menu/NavBar'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
+
 
 const HomeScreen = () => {
-    
-    
-    
-    
-    
+
+
     const Navigation = useNavigation();
+    const [doctorData, setDoctorData] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [comment, setComment] = useState('')
+    const [vote, setVote] = useState(0)
+    const [userId, setUserId] = useState(0)
 
-   
 
-    const Map=()=>{
-      Navigation.navigate("Localisation");
-    }
+    useEffect(() => {
+        fetch('http://192.168.1.112:80/Mobile%20API/getDoctors.php')
+            .then((res) => res.json())
+            .then(res => setDoctorData(res))
+            .catch(err => console.log(err))
+    }, [])
 
-    const Setting =()=>{
-        Navigation.navigate("Setting");
-    }
+    useEffect(
+        async () => {
+            try {
+                const userData = await AsyncStorage.getItem('user')
+                let userDataParsed = JSON.parse(userData)
+                setUserId(userDataParsed.id)
+            } catch (err) {
+                Alert.alert('err', JSON.parse(err))
+            }
+        }, [])
+
+
+
+    const onChangeSearch = query => setSearchQuery(query); 
+        
+        
     
-   
-      
+
+    const OnsearchPress = () => {
+        if(searchQuery!=''){
+            setDoctorData(doctorData.filter(doctor=>doctor.fullname===searchQuery))
+        }
+    }
+
+
+    const Map = () => Navigation.navigate("Map");
+
+
+    const Setting = () => Navigation.navigate("Setting");
+
+
+    const Profile = () => Navigation.navigate("Profile");
+
+
 
     return (
-        <View>
-        <ImageBackground source={require('../../../assets/images/Back1.gif')} resizeMode="cover" style={{width:"100%",height:"100%"}}>
-                  <Text style={{color:'black' , textAlign:'center',fontSize:32,marginBottom:0,marginTop:20,fontWeight:'bold'}}> Welcome in FinoTbib  </Text>
-                  <Text style={{color:'black' , textAlign:'center',fontSize:12,marginBottom:20,marginTop:0,textTransform:'uppercase',}}>We wish you a speedy recovery </Text>
-                  <View 
-                  style={{
-                    flex: 1,
-                    // justifyContent: 'flex-end',
-                  }}
-                  ></View>
-                   <NavBar
-                   map={Map}
-                   setting={Setting}
+        <ScrollView>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 32, marginBottom: 0, marginTop: 20, fontWeight: 'bold' }}> Welcome in FinoTbib  </Text>
+            <Text style={{ color: 'black', textAlign: 'center', fontSize: 12, marginBottom: 20, marginTop: 0, textTransform: 'uppercase', }}>We wish you a speedy recovery </Text>
+            <ScrollView>
+                <View style={{flexDirection:'row'}} >
+                    <View style={{flex:3}} >
+                    <Searchbar
+                    placeholder="Search"
+                    onChangeText={onChangeSearch}
+                    value={searchQuery}
+                    style={{ borderRadius: 10, marginLeft: 7, marginRight: 7 }}
+                /> 
+                    </View>
+                    <View style={{flex:1}} >
+                        <Button style={{ backgroundColor: '#2EA1D9',width:12, marginTop:4 }} onPress={OnsearchPress} ><Text style={{color:'white'}} >Get</Text></Button>
+                    </View>
+                </View>
+                {doctorData.map((doctor, index) =>
+                    <Card key={index} >
+                        <Card.Content style={{ borderWidth: 3, margin: 6, borderRadius: 30, borderColor: '#1572A1', backgroundColor: '#DFF6F0' }} >
+                            <View style={{ flexDirection: "row" }} >
+                                <View style={{ flex: 3 }}>
+                                    <Title>{ `${doctor.fullname}`}  </Title>
+                                    <Paragraph>
+                                        {`Spiciality: ${doctor.speciality}`}
+                                    </Paragraph>
 
-                    ></NavBar>
-          </ImageBackground>
-        </View>
+                                    <Card.Actions>
+                                        <Button
+                                            onPress={() => {
+                                                Alert.alert(doctor.fullname,
+                                                    'FullName : ' + doctor.fullname + '\n' 
+                                                    + 'Spiciality: ' + doctor.speciality + '\n'
+                                                    + 'Phone : ' + doctor.phone
+                                                )
+                                            }}
+                                            style={{ backgroundColor: '#2EA1D9', }} >
+                                            <Text style={{ color: 'white' }} >Read More</Text>
+                                        </Button>
+                                        <View >
+                                            <Modal
+                                                animationType="slide"
+                                                transparent={true}
+                                                visible={modalVisible}
+                                                onRequestClose={() => {
+                                                    setModalVisible(!modalVisible);
+                                                }}
+                                            >
+                                                <View style={styles.centeredView}>
+                                                    <View style={styles.modalView}>
+                                                        <TextInput
+                                                            style={styles.Input}
+                                                            placeholder='Comment...'
+                                                            value={comment}
+                                                            onChangeText={setComment}
+                                                        />
+                                                        <TextInput
+                                                            style={styles.Input}
+                                                            placeholder='Vote.../10'
+                                                            value={vote}
+                                                            keyboardType="numeric"
+                                                            onChangeText={setVote}
+                                                        />
+                                                        <Button
+                                                            style={[styles.button, styles.buttonClose]}
+                                                            onPress={() => {
+                                                                if (comment === '' || vote === 0) {
+                                                                    Alert.alert('Error', 'fill all fields first  !')
+                                                                } else {
+                                                                    let headers = {
+                                                                        'Accept': 'application/json',
+                                                                        'Content-Type': 'application/json'
+                                                                    }
+                                                                    let data = {
+                                                                        userId: userId,
+                                                                        doctorId: doctor.id,
+                                                                        comment: comment,
+                                                                        vote: vote
+                                                                    }
+                                                                    fetch(
+                                                                        'http://192.168.1.112:80/Mobile%20API/reviewDoctor.php',
+                                                                        {
+                                                                            method: 'POST',
+                                                                            headers: headers,
+                                                                            body: JSON.stringify(data)
+                                                                        }
+                                                                    )
+                                                                        .then(res => res.text())
+                                                                        .then(res => {
+                                                                            if (res === 'Data Inserted') {
+                                                                                setModalVisible(!modalVisible)
+                                                                                setVote(0)
+                                                                                setComment('')
+                                                                                Alert.alert("Review", 'Review Added')
+                                                                            }
+                                                                        })
+                                                                        .catch(err => Alert.alert('Error', JSON.stringify(err)))
+                                                                }
+                                                            }}
+                                                        >
+                                                            <Text style={styles.textStyle}>Submit & Close</Text>
+                                                        </Button>
+                                                    </View>
+                                                </View>
+                                            </Modal>
+                                            <Button onPress={() => setModalVisible(true)} style={{ backgroundColor: '#2EA1D9', marginLeft: 4 }} ><Text style={{ color: 'white' }} >Review</Text></Button>
+                                        </View>
+                                    </Card.Actions>
+                                </View>
+                                <View style={{ flex: 1 }}  >
+                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100,  }}></Image>
+                                </View>
+                            </View>
+                        </Card.Content>
+                    </Card>
+                )}
+            </ScrollView>
+            <SafeAreaView>
+                <NavBar
+                    map={Map}
+                    setting={Setting}
+                    profil={Profile}
+                ></NavBar>
+            </SafeAreaView>
+        </ScrollView>
     )
 }
-
-export default HomeScreen
-
 const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 10,
+        padding: 2,
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    Input: {
+        borderBottomWidth: 1,
+        margin: 5,
+        borderBottomColor: 'blue'
+    }
+});
+export default HomeScreen;
 
-
-})
