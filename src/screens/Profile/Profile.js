@@ -71,25 +71,30 @@ const Profile = () => {
         <View
         >
 
-            <ImageBackground source={require('../../../assets/images/Back/Back4.gif')} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
+            <ImageBackground source={require('../../../assets/images/Back/15.gif')} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
+           
                 <View
                     style={{ flexDirection: 'row', marginBottom: 130, backgroundColor: '#56ADE7', paddingTop: 7, paddingBottom: 7 }}
                 >
                     <Image source={require('../../../assets/images/Setting.gif')} resizeMode='contain' style={{ width: 45, height: 45, marginLeft: 30, }} />
                     <Text style={{ marginLeft: 75, fontWeight: 'bold', fontSize: 25, color: 'white' }}>Profil</Text>
                 </View>
-
-                <Card style={{ borderWidth: 3, borderColor: 'white', borderRadius: 8, margin: 8, backgroundColor: '#DFF6F0' }} >
+            <View style={{alignItems:'center',width:'100%',height:140,marginBottom:16}}>
+                <View style={{alignItems:'center',width:140,height:140,backgroundColor:'white',borderBottomLeftRadius:80,borderBottomRightRadius:80,borderTopLeftRadius:80,borderTopRightRadius:80,borderWidth:8,borderColor:'#56ADE7'}}>
+                   <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100,marginTop:12 }}></Image>  
+                </View>
+               </View>
+                <Card style={{ borderWidth: 10, borderColor: 'white', borderRadius: 50, backgroundColor: '#CCEFFF',marginLeft:15,marginRight:15,marginBottom:35 }} >
                     <Card.Content  >
-                        <Subheading>Fullname : {fullname} </Subheading>
-                        <Subheading>Email : {email} </Subheading>
-                        <Subheading>Phone : {phone} </Subheading>
+                        <Subheading><Text style={{fontWeight:'bold'}}>Fullname</Text> : {fullname} </Subheading>
+                        <Subheading><Text style={{fontWeight:'bold'}}>Email</Text> : {email} </Subheading>
+                        <Subheading><Text style={{fontWeight:'bold'}}>Phone</Text> : {phone} </Subheading>
                     </Card.Content>
                 </Card>
                 <View style={{ alignItems: 'center', width: "50%", marginLeft: 100, }}>
-                    <CustomButton text1="Change Password" onPress={onPwdPressed} fgColor={'#FFFFFF'} bgColor="#FF5858" />
-                    <CustomButton text1="Log Out" onPress={onLogOutPressed} fgColor={'#FFFFFF'} />
-                    <CustomButton text1="Contact US" onPress={onCallPressed} fgColor={'#FFFFFF'} bgColor="#12D3CF" />
+                    <CustomButton text1="Change Password" onPress={onPwdPressed} fgColor={'#FFFFFF'} bgColor="#FF5733" />
+                    <CustomButton text1="Contact US" onPress={onCallPressed} fgColor={'#FFFFFF'} bgColor="#16A085" />
+                    <CustomButton text1="Log Out" onPress={onLogOutPressed} fgColor={'#FFFFFF'} bgColor="#1A5276"/>
                 </View>
                 <View style={{ flex: 1 }}></View>
                 <NavBar
