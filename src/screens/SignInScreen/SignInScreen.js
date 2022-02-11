@@ -34,13 +34,8 @@ const SignInScreen = () => {
                 password: password
             }
             fetch(
-<<<<<<< HEAD
+                //'http://192.168.1.105:808080/Mobile%20API/login.php',
                 'http://192.168.1.105:8080/Mobile%20API/login.php',
-                // 'http://192.168.1.105:80/Mobile%20API/login.php',
-=======
-                //'http://192.168.1.112:8080/Mobile%20API/login.php',
-                'http://192.168.1.112:80/Mobile%20API/login.php',
->>>>>>> main
                 {
                     method: 'POST',
                     headers: headers,
@@ -51,13 +46,11 @@ const SignInScreen = () => {
                 .then( Response => Response.json() )
                 .then((Response) => {
                     AsyncStorage.setItem('user',JSON.stringify({
-<<<<<<< HEAD
-=======
                         id:Response[0],
->>>>>>> main
                         fullname:Response[1],
                         email:Response[2],
-                        phone:Response[3]
+                        phone:Response[3],
+                        role:Response[5]
                     })).then(()=>{
                         setEmail('')
                         setPassword('')

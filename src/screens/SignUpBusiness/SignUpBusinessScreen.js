@@ -27,7 +27,7 @@ const SignUpBusinessScreen = () => {
 
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/Mobile%20API/getSpecialities.php')
+        fetch('http://192.168.1.105:8080/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(`specialities error : ${err}`))
@@ -72,7 +72,7 @@ const SignUpBusinessScreen = () => {
             }
             fetch(
                 
-                'http://192.168.1.112:8080/Mobile%20API/createBisAccount.php',
+                'http://192.168.1.105:8080/Mobile%20API/createBisAccount.php',
                 {
                     method: 'POST',
                     headers: headers,

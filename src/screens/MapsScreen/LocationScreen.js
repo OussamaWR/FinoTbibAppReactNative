@@ -1,21 +1,17 @@
-import React, { useState } from 'react'
-import { View, Text, Image, Alert, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
-import CustomInput from '../../components/CustomInput';
-import CustomButton from '../../components/CustomButton';
+import React, { useRef } from "react";
+import { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, ActivityIndicator, Picker,  Dimensions,Linking, Platform } from "react-native";
+
+import CustomButton from "../../components/CustomButton";
+import NavBar from "../../components/Menu/NavBar";
 import { useNavigation } from '@react-navigation/native';
-<<<<<<< HEAD
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-const SignInScreen = () => { 
-=======
 import Carousel from "react-native-snap-carousel";
 import MapView, {
     PROVIDER_GOOGLE,
     Marker,
     Callout,
     Circle,
-} from "react-native-maps"; 
+} from "react-native-maps";
 
 
 navigator.geolocation = require("@react-native-community/geolocation");
@@ -58,7 +54,7 @@ const LocationScreen = () => {
             speciality: speciality,
         }
         fetch(
-            'http://192.168.1.112:80/Mobile%20API/getLocalisations.php',
+            'http://192.168.1.105:8080/Mobile%20API/getLocalisations.php',
             {
                 method: 'POST',
                 headers: headers,
@@ -68,7 +64,7 @@ const LocationScreen = () => {
             .then(res => res.json())
             .then(res => {
                 setLocalisations(res)
-                console.log( localisations);
+                console.log("a9a 9a 9a 9a9aaaaaaaaa", localisations);
             })
             .catch(err => {
                 console.log(err)
@@ -98,7 +94,7 @@ const LocationScreen = () => {
             { timeout: 20000, maximumAge: 1000 }
         );
 
-        fetch('http://192.168.1.112:80/Mobile%20API/getSpecialities.php')
+        fetch('http://192.168.1.105:8080/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
             .catch(err => console.warn(err))
@@ -111,11 +107,7 @@ const LocationScreen = () => {
     const refMarks = useRef();
     const markers = [];
 
-<<<<<<< HEAD
     const [phoneNumber, setPhoneNumbre] = useState(''); 
-=======
-    const [phoneNumber, setPhoneNumbre] = useState('');
->>>>>>> mouadBranch
 
     const onCarouselItemChange = (index) => {
         let location = localisations[index];
@@ -129,12 +121,37 @@ const LocationScreen = () => {
         markers[index].showCallout();
 
     }
-<<<<<<< HEAD
+
+
+
+    const carouselRef = useRef(null);
+
+
+    const Navigation = useNavigation();
+    const HomePress = () => {
+        Navigation.navigate("HomeClient");
+    }
+    const Setting = () => {
+        Navigation.navigate("Setting");
+    }
 
     const call = () => {
-        // RNImmediatePhoneCall.immediatePhoneCall('0123456789');
-        console.warn("call")
+     
+        let Number = '';
+
+        if (Platform.OS === 'android') {
+          Number = 'tel:${'+phoneNumber+'}';
+        } else {
+          Number = 'telprompt:${'+phoneNumber+'}';
+        }
+    
+        Linking.openURL(Number);
     }
+
+  
+    const Profile = () => navigation.navigate("Profile");
+
+
     const _renderItem = ({ item }) => {
         return (
             <View style={styles.carsouls1}>
@@ -155,164 +172,156 @@ const LocationScreen = () => {
                     </View>
 
 
-    const carouselRef = useRef(null);
->>>>>>> 1045c6b08713089b199653e78373172375fdec52
-
-
-    const { height } = useWindowDimensions();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const Navigation = useNavigation();
-    
-
-
-    const onSignUpPressed = () => {
-        Navigation.navigate("SignUp");
-        //Navigation.navigate("HomeClient");
-    }
-
-    const onSignInPressed = () => {
-        if (email == '' || password == '') {
-            Alert.alert('Error', 'you should fill all fields !')
-        } else {
-            let headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-            let data = {
-                email: email,
-                password: password
-            }
-            fetch(
-                //'http://192.168.1.105:8080/Mobile%20API/login.php',
-                'http://192.168.1.105:80/Mobile%20API/login.php',
-                {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                }
-            )
-           
-                .then( Response => Response.json() )
-                .then((Response) => {
-                    AsyncStorage.setItem('user',JSON.stringify({
-                        fullname:Response[1],
-                        email:Response[2],
-                        phone:Response[3]
-                    })).then(()=>{
-                        setEmail('')
-                        setPassword('')
-                    }).catch(err=>console.log(err))
-                    if (Response[5] === "client") {
-                        Navigation.navigate("HomeClient")
-                    }else if(Response[5] === "doctor"){
-                        Navigation.navigate("HomeDoctor")
-                    }
-                    else{
-                        Alert.alert('Login Faild', 'Username or password incorrect ! ')
-                    }
-                }) 
-                .catch((error) => {
-                    console.error("ERROR FOUND" + JSON.stringify(error));
-                })
-        }
-    }
-    const onForgotPasswordPressed = () => {
-        Navigation.navigate("ForgetPassword");
-    }
-
-    const onSignUpbisPressed = () => {
-        Navigation.navigate("SignUpBis")
-    }
-   
-
-
-    return (
-        <ScrollView style={{ backgroundColor: "white" }}>
-            <View style={styles.root}>
-
-             <Image
-                 source={require('../../../assets/images/logo1.png') } 
-                style={styles.logo,{height : height*0.15 , marginTop : 20}} 
-                resizeMode='contain'
-                />  
-                <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', paddingTop: 3 }} > FinoTbib </Text>
-                <View style={styles.test}>
-                    <View style={styles.test1}>
-                        <CustomInput
-                            secureTextEntry={false}
-                            placeholder="Email"
-                            value={email}
-                            setValue={setEmail}
-                        />
-
-
-                        <CustomInput
-                            secureTextEntry={true}
-                            placeholder="Password"
-                            value={password}
-                            setValue={setPassword}
-                        />
-
-                        <CustomButton text1="Sign In" onPress={onSignInPressed} />
-                        <CustomButton text1="Forgot Password ?" onPress={onForgotPasswordPressed} type='TERTIARY' />
-                        <Text style={{ marginTop: 20 }} > Don't have an account ?  </Text>
-                        <CustomButton text1="Create Client Account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
-                        <CustomButton text1="Create Doctor account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />
-                    </View>
                 </View>
-<<<<<<< HEAD
-=======
-                <MapView
-                    ref={mapView}
-                    provider={PROVIDER_GOOGLE}
-                    style={{ height: "52%" }}
-                    showsUserLocation={true}
-                    followsUserLocation={true}
-                    rotateEnabled={true}
-                    zoomEnabled={true}
-                    // toolbarEnabled={true}
-                    initialRegion={curentPosition}
-                >
->>>>>>> 1045c6b08713089b199653e78373172375fdec52
-
-            </View></ScrollView>
-    )
+            </View>
+        );
+    }
 
 
-}
+    const [curentPosition, setCurentPosition] = useState(initalState);
+
+    return curentPosition.latitude ? (
+        <View style={styles.containre}>
+            <Text style={{ marginBottom: 10,marginTop:15,marginLeft:20 }}>Choose the spiciality that you want : </Text>
+            <View style={styles.views}>
+
+                <View style={styles.Border}>
+
+                    <Picker
+                        selectedValue={selectedValue}
+                        style={{ height: 40, width: "100%", }}
+                        onValueChange={(itemValue) => {
+                            setSpeciality(itemValue)
+                            setSelectedValue(itemValue)
+                        }}
+                    >
+                        {specialities.map(spe => <Picker.Item label={spe} key={spe} value={spe} />)}
+                    </Picker>
+
+                </View>
+                <View style={{ width: '20%', marginTop: -10, marginLeft: 15 }}>
+                    <CustomButton
+                        text1={'GET'}
+                        onPress={get}
+                    />
+                </View>
+            </View>
+            <MapView
+                ref={mapView}
+                provider={PROVIDER_GOOGLE}
+                style={{ height: "60%" }}
+                showsUserLocation={true}
+                followsUserLocation={true}
+                rotateEnabled={true}
+                zoomEnabled={true}
+                // toolbarEnabled={true}
+                initialRegion={curentPosition}
+            >
+            
+
+                {localisations.map((loca, index) =>
+                    <Marker
+                        coordinate={{
+                            latitude: Number(loca.latitude),
+                            longitude: Number(loca.longitude),
+                        }}
+                        key={index}
+                        ref={ref => markers[index] = ref}
+                        image={require('../../../assets/images/Mark5.png')}
+
+                    >
+                        <Callout>
+                            <Text style={{ fontSize: 15, marginBottom: 5, textAlign: 'center', fontWeight: 'bold' }}>{loca.fullname}</Text>
+                        </Callout>
+
+
+                    </Marker>)
+                }
+
+
+
+                <Circle
+                    center={{ latitude: curentPosition.latitude, longitude: curentPosition.longitude }}
+                    radius={1000}
+                    fillColor={"rgba(100,10,20,0.2)"}
+                />
+            </MapView>
+
+
+            <Carousel
+                ref={carouselRef}
+
+                data={localisations}
+                renderItem={_renderItem}
+                sliderWidth={Dimensions.get('window').width}
+                itemWidth={300}
+                onSnapToItem={(index) => onCarouselItemChange(index)}
+            />
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'flex-end',
+
+
+                }}
+            ></View>
+
+
+            <NavBar
+                home={HomePress}
+                setting={Setting}
+                profil={Profile}
+            ></NavBar>
+
+        </View>
+    ) : (
+        <ActivityIndicator style={{ flex: 1 }} animating size="large" />
+    );
+};
+
+export default LocationScreen;
+
 const styles = StyleSheet.create({
-    logo: {
-        width: '50%',
-        maxHeight: 200,
-        maxWidth: 200,
+    containre: {
+        flex: 1,
     },
-    root: {
-
-        backgroundColor: '#56ADE7',
-        width: '100%',
-        alignItems: 'center'
+    views: {
+        marginBottom: 5,
+        marginHorizontal: 20,
+        marginTop: 5,
+        flexDirection: 'row'
     },
-
-    test: {
-        marginTop: 30,
-        borderRadius: 40,
-        backgroundColor: 'white',
-        width: "100%"
-    },
-    test1: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        paddingTop: 15,
-        marginVertical: 30,
-        paddingHorizontal: 30
+    Border: {
+        borderColor: "#293772",
+        borderWidth: 1.75,
+        width: "65%",
+        height: 45,
+        borderRadius: 15,
+        // marginBottom: 0,
+        // paddingHorizontal: 20,
+        backgroundColor: "#F9FBFF"
     }
     ,
     image: {
-        flex: 1,
-        justifyContent: "center"
+        width: 120,
+        height: 80,
+
+    }
+    , carsouls: {
+        paddingTop: 7,
+        flexDirection: 'row',
+        backgroundColor: '#007a87',
+        width: '100%',
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+
     },
+    carsouls1: {
+
+        width: "85%",
+
+        alignItems: 'center',
+        marginTop: 10,
+    }
 
 });
-export default SignInScreen;

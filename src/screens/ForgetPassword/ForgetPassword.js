@@ -21,7 +21,7 @@ const ForgetPassword = () => {
             }
             fetch(
                 
-                'http://192.168.1.112:80/mobile-api/resetPassword.php',
+                'http://192.168.1.105:8080/mobile-api/resetPassword.php',
                 {
                     method: 'POST',
                     headers: headers,

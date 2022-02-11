@@ -6,15 +6,12 @@ import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CustomButton from '../../components/CustomButton'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 const Setting = () => {
 
     const [fullname, setFullname] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
-
-
-
 
     useEffect(async () => {
         try {
@@ -35,7 +32,7 @@ const Setting = () => {
             Alert.alert('Error', 'you should fill all fields !')
         } else {
             fetch(
-                'http://192.168.1.112:80/Mobile%20API/updateUser.php',
+                'http://192.168.1.105:8080/Mobile%20API/updateUser.php',
                 {
                     method: 'POST',
                     headers: {
@@ -74,11 +71,11 @@ const Setting = () => {
 
 
 
-    ImagePicker.openPicker({
-        width: VARIABLES.userImages.width,
-        height: VARIABLES.userImages.height,
-        cropping: true
-    })
+    // ImagePicker.openPicker({
+    //     width: VARIABLES.userImages.width,
+    //     height: VARIABLES.userImages.height,
+    //     cropping: true
+    // })
 
 
 
@@ -147,14 +144,7 @@ const Setting = () => {
                     }}
                 ></View>
 
-                <NavBar
-                    map={Map}
-                    setting={Setting}
-                    home={Home}
-                    profil={Profile}
-
-
-                ></NavBar>
+                
             </ImageBackground>
         </View>
     )

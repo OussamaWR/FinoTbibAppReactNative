@@ -4,7 +4,7 @@ import NavBar from '../../components/Menu/NavBar'
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
-
+import CustomButton from '../../components/CustomButton';
 
 const HomeScreen = () => {
 
@@ -19,11 +19,11 @@ const HomeScreen = () => {
 
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/Mobile%20API/getDoctors.php')
+        fetch('http://192.168.1.105:8080/Mobile%20API/getDoctors.php')
             .then((res) => res.json())
             .then(res => setDoctorData(res))
             .catch(err => console.log(err))
-    }, [])
+    }, [doctorData])
 
     useEffect(
         async () => {
@@ -38,14 +38,14 @@ const HomeScreen = () => {
 
 
 
-    const onChangeSearch = query => setSearchQuery(query); 
-        
-        
-    
+    const onChangeSearch = query => setSearchQuery(query);
+
+
+
 
     const OnsearchPress = () => {
-        if(searchQuery!=''){
-            setDoctorData(doctorData.filter(doctor=>doctor.fullname===searchQuery))
+        if (searchQuery != '') {
+            setDoctorData(doctorData.filter(doctor => doctor.fullname === searchQuery))
         }
     }
 
@@ -61,29 +61,36 @@ const HomeScreen = () => {
 
 
     return (
-        <ScrollView>
+        <View>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 32, marginBottom: 0, marginTop: 20, fontWeight: 'bold' }}> Welcome in FinoTbib  </Text>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 12, marginBottom: 20, marginTop: 0, textTransform: 'uppercase', }}>We wish you a speedy recovery </Text>
-            <ScrollView>
-                <View style={{flexDirection:'row'}} >
-                    <View style={{flex:3}} >
+
+            <View style={{ flexDirection: 'row' }} >
+                <View style={{ flex: 3 }} >
                     <Searchbar
-                    placeholder="Search"
-                    onChangeText={onChangeSearch}
-                    value={searchQuery}
-                    style={{ borderRadius: 10, marginLeft: 7, marginRight: 7 }}
-                /> 
-                    </View>
-                    <View style={{flex:1}} >
-                        <Button style={{ backgroundColor: '#2EA1D9',width:12, marginTop:4 }} onPress={OnsearchPress} ><Text style={{color:'white'}} >Get</Text></Button>
-                    </View>
+                        placeholder="Search"
+                        onChangeText={onChangeSearch}
+                        value={searchQuery}
+                        style={{ borderRadius: 10, marginLeft: 17, marginRight: 7 }}
+                    />
                 </View>
+
+                <View style={{ width: '20%', marginTop: -6, marginRight: 15 }}>
+                    <CustomButton
+                        text1={'GET'}
+                        onPress={OnsearchPress}
+                    />
+                </View>
+
+
+            </View>
+            <ScrollView style={{ height: '75%' }}>
                 {doctorData.map((doctor, index) =>
                     <Card key={index} >
                         <Card.Content style={{ borderWidth: 3, margin: 6, borderRadius: 30, borderColor: '#1572A1', backgroundColor: '#DFF6F0' }} >
                             <View style={{ flexDirection: "row" }} >
                                 <View style={{ flex: 3 }}>
-                                    <Title>{ `${doctor.fullname}`}  </Title>
+                                    <Title>{`${doctor.fullname}`}  </Title>
                                     <Paragraph>
                                         {`Spiciality: ${doctor.speciality}`}
                                     </Paragraph>
@@ -92,7 +99,7 @@ const HomeScreen = () => {
                                         <Button
                                             onPress={() => {
                                                 Alert.alert(doctor.fullname,
-                                                    'FullName : ' + doctor.fullname + '\n' 
+                                                    'FullName : ' + doctor.fullname + '\n'
                                                     + 'Spiciality: ' + doctor.speciality + '\n'
                                                     + 'Phone : ' + doctor.phone
                                                 )
@@ -141,7 +148,7 @@ const HomeScreen = () => {
                                                                         vote: vote
                                                                     }
                                                                     fetch(
-                                                                        'http://192.168.1.112:80/Mobile%20API/reviewDoctor.php',
+                                                                        'http://192.168.1.105:8080/Mobile%20API/reviewDoctor.php',
                                                                         {
                                                                             method: 'POST',
                                                                             headers: headers,
@@ -171,21 +178,21 @@ const HomeScreen = () => {
                                     </Card.Actions>
                                 </View>
                                 <View style={{ flex: 1 }}  >
-                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100,  }}></Image>
+                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100, }}></Image>
                                 </View>
                             </View>
                         </Card.Content>
                     </Card>
                 )}
             </ScrollView>
-            <SafeAreaView>
+            <View style={{ height: '20%', alignItems: 'center', paddingTop: 10 }}>
                 <NavBar
                     map={Map}
                     setting={Setting}
                     profil={Profile}
                 ></NavBar>
-            </SafeAreaView>
-        </ScrollView>
+            </View>
+        </View>
     )
 }
 const styles = StyleSheet.create({

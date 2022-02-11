@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, Modal, Pressable, Image, View, ScrollView, TextInput, SafeAreaView, Alert } from 'react-native'
-import NavBar from '../../components/Menu/NavBar'
+
+import NavBarDoc from '../../components/MenuD/NavBarDoc';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
@@ -8,115 +9,92 @@ import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
 
 const HomeBuisness = () => {
 
-
+ 
     const Navigation = useNavigation();
-    const [doctorData, setDoctorData] = useState([])
+    const [reviewData, setReviewData] = useState([])
     const [userId, setUserId] = useState(0)
-
+ 
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/Mobile%20API/getDoctors.php')
-            .then((res) => res.json())
-            .then(res => setDoctorData(res))
-            .catch(err => console.log(err))
-    }, [])
-
-    useEffect(
-        async () => {
-            try {
-                const userData = await AsyncStorage.getItem('user')
+        AsyncStorage.getItem('user')
+            .then(userData => {
                 let userDataParsed = JSON.parse(userData)
                 setUserId(userDataParsed.id)
-            } catch (err) {
-                Alert.alert('err', JSON.parse(err))
-            }
-        }, [])
+            }) 
+            .catch(err=>Alert.alert('err', JSON.parse(err))) 
+    }, []) 
 
 
-    const Setting = () => Navigation.navigate("Setting");
+    useEffect( () => {
+        fetch(
+            'http://192.168.1.105:8080/Mobile%20API/getReviews.php',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId
+                }) 
+            } 
+        )
+            .then((res) => res.json())
+            .then(res => {
+                setReviewData(res)
+            })
+            .catch(err => console.log(err))
+    }, [reviewData])
 
-    const Profile = () => Navigation.navigate("Profile");
+    const Setting = () => Navigation.navigate("SettingD");
+
+    const Profile = () => Navigation.navigate("ProfileD");
 
     return (
-        <ScrollView>
+        <View>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 32, marginBottom: 0, marginTop: 20, fontWeight: 'bold' }}> Welcome in FinoTbib  </Text>
-            <Text style={{ color: 'black', textAlign: 'center', fontSize: 12, marginBottom: 20, marginTop: 0, textTransform: 'uppercase', }}>We wish you a speedy recovery </Text>
-            <ScrollView>
-                {doctorData.map((doctor, index) =>
+            <Text  style={{ color: 'black', textAlign: 'center', fontSize: 20, marginTop: 20, fontWeight: '500', marginBottom:10}} >people's opinion of you</Text>
+            <ScrollView style={{ height: '78%' }}>
+                {reviewData.map((review, index) =>
                     <Card key={index} >
                         <Card.Content style={{ borderWidth: 3, margin: 6, borderRadius: 30, borderColor: '#1572A1', backgroundColor: '#DFF6F0' }} >
                             <View style={{ flexDirection: "row" }} >
                                 <View style={{ flex: 3 }}>
-                                    <Title>{ `${doctor.fullname}`}  </Title>
-                                    <Paragraph>
-                                        {`Spiciality: ${doctor.speciality}`}
-                                    </Paragraph>
+                                <View style={{flexDirection:'row'}}>
+                                <View style={{alignItems:'center',borderRadius: 20, width: 35, height: 35,marginRight:7,borderWidth:3,borderColor:'#0083FF'}}><Image source={require('../../../assets/images/user.png')} resizeMode='contain' style={{ width: 35, height: 35,marginTop:-2.5}} /></View>
+                                    <Title style={{fontSize:15}}>{`${review.user}`}  </Title>
+                                     <Text style={{fontSize:13,textDecorationLine:'underline',marginTop:8}}>
+                                        ({`${review.created}`.substring(0,10)})
+                                    </Text></View>
 
+                                    <View style={{flexDirection:'row',margin:10}}>
+                                    <Image source={require('../../../assets/images/comment.png')} resizeMode='contain' style={{ width: 25, height: 25,marginRight:7,}} />
+                                       <Text>{` ${review.comment}`}</Text> 
+                                    </View>
+                                    <View style={{flexDirection:'row',margin:7}}>
+                                    <Image source={require('../../../assets/images/review1.png')} resizeMode='contain' style={{ width: 25, height: 25,marginRight:5}} />
+                                       <Text>{` ${review.vote}/10`}</Text> 
+                                    </View>
                                     
+                                   
                                 </View>
                                 <View style={{ flex: 1 }}  >
-                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100,  }}></Image>
+                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100, }}></Image>
                                 </View>
                             </View>
                         </Card.Content>
                     </Card>
                 )}
             </ScrollView>
-            <SafeAreaView>
-                <NavBar
+            <View style={{ height: '20%', alignItems: 'center', paddingTop: 10 }}>
+            <NavBarDoc
+                    map={Map}
                     setting={Setting}
                     profil={Profile}
-                ></NavBar>
-            </SafeAreaView>
-        </ScrollView>
+                ></NavBarDoc>
+            </View>
+        </View>
     )
 }
-const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 10,
-        padding: 2,
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    },
-    Input: {
-        borderBottomWidth: 1,
-        margin: 5,
-        borderBottomColor: 'blue'
-    }
-});
-export default HomeBuisness;
 
+export default HomeBuisness;

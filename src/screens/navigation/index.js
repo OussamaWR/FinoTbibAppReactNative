@@ -13,6 +13,9 @@
    import WelcomeScreen from '../WelcomeScreen'; 
    import Profile from '../Profile'; 
    import Setting from '../Setting';
+   import SettingD from '../SettingD';
+   import ProfileD from '../ProfileD/ProfileD';
+
 
     
     const Stack = createNativeStackNavigator(); 
@@ -23,6 +26,7 @@
             {/* <Stack.Screen name="Menu" component={Drawer} /> */}
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="Setting" component={Setting} />
+                <Stack.Screen name="SettingD" component={SettingD} />
                 <Stack.Screen name="SignIn" component={SignInScreen} />
                 <Stack.Screen name="SignUp" component={SignUpScreen} />
                 <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
@@ -32,6 +36,8 @@
                 <Stack.Screen name="SignUpBis" component={SignUpBusinessScreen} />
                 <Stack.Screen  name="Localisation" component={LocationScreen} />
                 <Stack.Screen  name="Profile" component={Profile} />
+                <Stack.Screen  name="ProfileD" component={ProfileD} />
+          
                 <Stack.Screen  name="ChangePassword" component={ChangePassword} />
                 
              
