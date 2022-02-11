@@ -77,7 +77,6 @@ const Profile = () => {
         >
 
             <ImageBackground source={require('../../../assets/images/Back/15.gif')} resizeMode="cover" style={{ width: "100%", height: "100%" }}>
-
                 <View
                     style={{ flexDirection: 'row', marginBottom: 130, backgroundColor: '#56ADE7', paddingTop: 7, paddingBottom: 7 }}
                 >

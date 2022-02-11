@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
 
 
-const HomeBuisness = () => {
+const HomeBuisness = () => {  
 
  
     const Navigation = useNavigation();
@@ -22,7 +22,7 @@ const HomeBuisness = () => {
                 setUserId(userDataParsed.id)
             }) 
             .catch(err=>Alert.alert('err', JSON.parse(err))) 
-    }, []) 
+    }, [reviewData]) 
 
 
     useEffect( () => {
@@ -37,7 +37,7 @@ const HomeBuisness = () => {
                 body: JSON.stringify({
                     userId
                 }) 
-            } 
+            }
         )
             .then((res) => res.json())
             .then(res => {

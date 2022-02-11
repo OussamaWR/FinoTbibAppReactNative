@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignInScreen = () => { 
-
+ 
 
     const { height } = useWindowDimensions();
     const [email, setEmail] = useState('');
@@ -18,8 +18,10 @@ const SignInScreen = () => {
 
     const onSignUpPressed = () => {
         Navigation.navigate("SignUp");
-        //Navigation.navigate("HomeClient");
     }
+
+    
+  
 
     const onSignInPressed = () => {
         if (email == '' || password == '') {
@@ -59,7 +61,9 @@ const SignInScreen = () => {
                         Navigation.navigate("HomeClient")
                     }else if(Response[5] === "doctor"){
                         Navigation.navigate("HomeDoctor")
-                    }
+                    }else if(Response[5] === "admin") {
+                        Navigation.navigate("AdminHome")
+                    } 
                     else{
                         Alert.alert('Login Faild', 'Username or password incorrect ! ')
                     }
@@ -69,6 +73,26 @@ const SignInScreen = () => {
                 })
         }
     }
+
+    const onGoHomePressed = async () => {
+        try {
+            const userData = await AsyncStorage.getItem('user')
+            if(userData!=null){
+                let userDataParsed=JSON.parse(userData)
+                if(userDataParsed.role==='client')
+                Navigation.navigate("HomeClient");
+                else if(userDataParsed.role==='doctor')
+                Navigation.navigate("DoctorHome");
+                else if(userDataParsed.role==='admin')
+                Navigation.navigate("AdminHome");
+            }else{
+                Alert.alert('Login Error', "You are not logged yet !")
+            }
+        } catch (err) {
+            Alert.alert('Login Error', JSON.parse(err))
+        }
+    }
+
     const onForgotPasswordPressed = () => {
         Navigation.navigate("ForgetPassword");
     }
@@ -108,6 +132,7 @@ const SignInScreen = () => {
 
                         <CustomButton text1="Sign In" onPress={onSignInPressed} />
                         <CustomButton text1="Forgot Password ?" onPress={onForgotPasswordPressed} type='TERTIARY' />
+                        <CustomButton text1="Already Signed In ? Go Home" onPress={onGoHomePressed} fgColor="#3E497A" bgColor="#CAF0F8"  />
                         <Text style={{ marginTop: 20 }} > Don't have an account ?  </Text>
                         <CustomButton text1="Create Client Account" onPress={onSignUpPressed} bgColor="#FAE9E1" fgColor="#DD4D44" />
                         <CustomButton text1="Create Doctor account" onPress={onSignUpbisPressed} bgColor="#C7F9BE" fgColor="#167C05" />

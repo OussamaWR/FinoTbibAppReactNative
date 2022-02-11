@@ -10,6 +10,8 @@
    import LocationScreen from '../MapsScreen/LocationScreen';
    import HomeScreen from '../HomeScreen'; 
    import HomeBuisness from '../HomeBuisness'; 
+   import HomeAdmin from '../HomeAdmin'; 
+   import Dashboard from '../Dashboard'; 
    import WelcomeScreen from '../WelcomeScreen'; 
    import Profile from '../Profile'; 
    import Setting from '../Setting';
@@ -32,6 +34,8 @@
                 <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
                 <Stack.Screen name="HomeDoctor" component={HomeBuisness} />
                 <Stack.Screen name="HomeClient" component={HomeScreen} />
+                <Stack.Screen name="AdminHome" component={HomeAdmin} />
+                <Stack.Screen name="Dashboard" component={Dashboard} />
                 <Stack.Screen name="Map" component={LocationScreen} />
                 <Stack.Screen name="SignUpBis" component={SignUpBusinessScreen} />
                 <Stack.Screen  name="Localisation" component={LocationScreen} />
@@ -40,7 +44,7 @@
           
                 <Stack.Screen  name="ChangePassword" component={ChangePassword} />
                 
-             
+    
             </Stack.Navigator>
             </NavigationContainer>
         )

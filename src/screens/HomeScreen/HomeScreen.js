@@ -34,7 +34,7 @@ const HomeScreen = () => {
             } catch (err) {
                 Alert.alert('err', JSON.parse(err))
             }
-        }, [])
+        }, [doctorData])
 
 
 
@@ -42,6 +42,13 @@ const HomeScreen = () => {
 
 
 
+<<<<<<< HEAD
+    const onChangeSearch = query => setSearchQuery(query);
+
+
+
+=======
+>>>>>>> ee917b92fcdcfbf320d4c8da3f7a5c1890abadd4
 
     const OnsearchPress = () => {
         if (searchQuery != '') {
@@ -243,4 +250,3 @@ const styles = StyleSheet.create({
     }
 });
 export default HomeScreen;
-
