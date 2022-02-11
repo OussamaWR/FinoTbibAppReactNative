@@ -6,32 +6,44 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
 
 
-const HomeBuisness = () => {
+const HomeBuisness = () => {  
 
 
     const Navigation = useNavigation();
-    const [doctorData, setDoctorData] = useState([])
+    const [reviewData, setReviewData] = useState([])
     const [userId, setUserId] = useState(0)
 
 
     useEffect(() => {
-        fetch('http://192.168.1.112:80/Mobile%20API/getDoctors.php')
-            .then((res) => res.json())
-            .then(res => setDoctorData(res))
-            .catch(err => console.log(err))
-    }, [])
-
-    useEffect(
-        async () => {
-            try {
-                const userData = await AsyncStorage.getItem('user')
+        AsyncStorage.getItem('user')
+            .then(userData => {
                 let userDataParsed = JSON.parse(userData)
                 setUserId(userDataParsed.id)
-            } catch (err) {
-                Alert.alert('err', JSON.parse(err))
-            }
-        }, [])
+            }) 
+            .catch(err=>Alert.alert('err', JSON.parse(err))) 
+    }, [reviewData]) 
 
+
+    useEffect( () => {
+        fetch(
+            'http://192.168.1.112:80/Mobile%20API/getReviews.php',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId
+                }) 
+            }
+        )
+            .then((res) => res.json())
+            .then(res => {
+                setReviewData(res)
+            })
+            .catch(err => console.log(err))
+    }, [reviewData])
 
     const Setting = () => Navigation.navigate("Setting");
 
@@ -40,22 +52,25 @@ const HomeBuisness = () => {
     return (
         <ScrollView>
             <Text style={{ color: 'black', textAlign: 'center', fontSize: 32, marginBottom: 0, marginTop: 20, fontWeight: 'bold' }}> Welcome in FinoTbib  </Text>
-            <Text style={{ color: 'black', textAlign: 'center', fontSize: 12, marginBottom: 20, marginTop: 0, textTransform: 'uppercase', }}>We wish you a speedy recovery </Text>
             <ScrollView>
-                {doctorData.map((doctor, index) =>
+                {reviewData.map((review, index) =>
                     <Card key={index} >
                         <Card.Content style={{ borderWidth: 3, margin: 6, borderRadius: 30, borderColor: '#1572A1', backgroundColor: '#DFF6F0' }} >
                             <View style={{ flexDirection: "row" }} >
                                 <View style={{ flex: 3 }}>
-                                    <Title>{ `${doctor.fullname}`}  </Title>
+                                    <Title>{`${review.user}`}  </Title>
                                     <Paragraph>
-                                        {`Spiciality: ${doctor.speciality}`}
+                                        {`Comment: ${review.comment}`}
                                     </Paragraph>
-
-                                    
+                                    <Paragraph>
+                                        {`Vote: ${review.vote}`}
+                                    </Paragraph>
+                                    <Paragraph>
+                                        {`Created at : ${review.created}`}
+                                    </Paragraph>
                                 </View>
                                 <View style={{ flex: 1 }}  >
-                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100,  }}></Image>
+                                    <Image source={require('../../../assets/images/doctor.png')} style={{ width: 100, height: 100, }}></Image>
                                 </View>
                             </View>
                         </Card.Content>
@@ -71,52 +86,6 @@ const HomeBuisness = () => {
         </ScrollView>
     )
 }
-const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 10,
-        padding: 2,
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    },
-    Input: {
-        borderBottomWidth: 1,
-        margin: 5,
-        borderBottomColor: 'blue'
-    }
-});
+
 export default HomeBuisness;
 
