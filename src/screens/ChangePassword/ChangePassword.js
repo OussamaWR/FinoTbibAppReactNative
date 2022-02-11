@@ -25,7 +25,7 @@ const ChangePassword = () => {
             }
             fetch(
                 
-                'http://192.168.1.105:8080/Mobile%20API/changePassword.php',
+                'http://192.168.1.127:8080/Mobile%20API/changePassword.php',
                 {
                     method: 'POST',
                     headers: headers,

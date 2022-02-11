@@ -38,7 +38,7 @@ const SettingD = () => {
             Alert.alert('Error', 'you should fill all fields !')
         } else {
             fetch(
-                'http://192.168.1.105:8080/Mobile%20API/updateUser.php',
+                'http://192.168.1.127:8080/Mobile%20API/updateUser.php',
                 {
                     method: 'POST',
                     headers: {
@@ -58,7 +58,7 @@ const SettingD = () => {
                 .then(res => {
                     Alert.alert('Success', res)
                 })
-                .catch(err => console.warn(err))
+                .catch(err => console.log(err))
         }
     }
 

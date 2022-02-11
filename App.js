@@ -8,7 +8,7 @@ import Setting from './src/screens/Setting';
 import Profile from './src/screens/Profile';
 
 const App = () => {
-
+  console.disableYellowBox  = true;
   return (
     <View  style={{flex:1,width:"100%"}}>
     

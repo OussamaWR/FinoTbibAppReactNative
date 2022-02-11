@@ -32,7 +32,7 @@ const Setting = () => {
             Alert.alert('Error', 'you should fill all fields !')
         } else {
             fetch(
-                'http://192.168.1.105:8080/Mobile%20API/updateUser.php',
+                'http://192.168.1.127:8080/Mobile%20API/updateUser.php',
                 {
                     method: 'POST',
                     headers: {
@@ -52,7 +52,7 @@ const Setting = () => {
                 .then(res => {
                     Alert.alert('Success', res)
                 })
-                .catch(err => console.warn(err))
+                .catch(err => console.log(err))
         }
     }
 
@@ -143,7 +143,14 @@ const Setting = () => {
                         // justifyContent: 'flex-end',
                     }}
                 ></View>
+                 <NavBar
+                    map={Map}
+                    setting={Setting}
+                    home={Home}
+                    profil={Profile}
 
+
+                ></NavBar>
                 
             </ImageBackground>
         </View>

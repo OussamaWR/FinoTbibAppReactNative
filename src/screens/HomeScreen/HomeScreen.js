@@ -19,7 +19,7 @@ const HomeScreen = () => {
 
 
     useEffect(() => {
-        fetch('http://192.168.1.105:8080/Mobile%20API/getDoctors.php')
+        fetch('http://192.168.1.127:8080/Mobile%20API/getDoctors.php')
             .then((res) => res.json())
             .then(res => setDoctorData(res))
             .catch(err => console.log(err))
@@ -42,13 +42,6 @@ const HomeScreen = () => {
 
 
 
-<<<<<<< HEAD
-    const onChangeSearch = query => setSearchQuery(query);
-
-
-
-=======
->>>>>>> ee917b92fcdcfbf320d4c8da3f7a5c1890abadd4
 
     const OnsearchPress = () => {
         if (searchQuery != '') {
@@ -155,7 +148,7 @@ const HomeScreen = () => {
                                                                         vote: vote
                                                                     }
                                                                     fetch(
-                                                                        'http://192.168.1.105:8080/Mobile%20API/reviewDoctor.php',
+                                                                        'http://192.168.1.127:8080/Mobile%20API/reviewDoctor.php',
                                                                         {
                                                                             method: 'POST',
                                                                             headers: headers,

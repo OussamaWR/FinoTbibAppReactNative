@@ -4,136 +4,136 @@ import NavBar from '../../components/Menu/NavBar'
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph } from 'react-native-paper';
+import SettingD from '../SettingD';
+import ProfileD from '../ProfileD/ProfileD';
+import NavBarDoc from '../../components/MenuD/NavBarDoc';
+
 import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
-const screenWidth = Dimensions.get("window").width;
+
+
 
 const Dashboard = () => {
-    return (
-        <View>
-            <Text>Bezier Line Chart</Text>
-            <LineChart
-                data={{
-                    labels: ["January", "February", "March", "April", "May", "June"],
-                    datasets: [
-                        {
-                            data: [
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100
-                            ]
-                        }
-                    ]
-                }}
-                width={Dimensions.get("window").width} // from react-native
-                height={220}
-                yAxisLabel="$"
-                yAxisSuffix="k"
-                yAxisInterval={1} // optional, defaults to 1
-                chartConfig={{
-                    backgroundColor: "#e26a00",
-                    backgroundGradientFrom: "#fb8c00",
-                    backgroundGradientTo: "#ffa726",
-                    decimalPlaces: 2, // optional, defaults to 2dp
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    style: {
-                        borderRadius: 16,
-
-                    },
-                    propsForDots: {
-                        r: "6",
-                        strokeWidth: "2",
-                        stroke: "#ffa726"
-                    }
-                }}
-                bezier
-                style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                    margin: 20
-                }}
-            />
-
-
-            <PieChart
-                data={
-                    [
-                        {
-                          name: "Seoul",
-                          population: 21500000,
-                          color: "rgba(131, 167, 234, 1)",
-                          legendFontColor: "#7F7F7F",
-                          legendFontSize: 15
-                        },
-                        {
-                          name: "Toronto",
-                          population: 2800000,
-                          color: "#F00",
-                          legendFontColor: "#7F7F7F",
-                          legendFontSize: 15
-                        },
-                        {
-                          name: "Beijing",
-                          population: 527612,
-                          color: "red",
-                          legendFontColor: "#7F7F7F",
-                          legendFontSize: 15
-                        },
-                        {
-                          name: "New York",
-                          population: 8538000,
-                          color: "#ffffff",
-                          legendFontColor: "#7F7F7F",
-                          legendFontSize: 15
-                        },
-                        {
-                          name: "Moscow",
-                          population: 11920000,
-                          color: "rgb(0, 0, 255)",
-                          legendFontColor: "#7F7F7F",
-                          legendFontSize: 15
-                        }
-                      ]
-                }
-                width={screenWidth}
-                height={220}
-                chartConfig={
-                    {
-                        backgroundColor: "#e26a00",
-                        backgroundGradientFrom: "#fb8c00",
-                        backgroundGradientTo: "#ffa726",
-                        decimalPlaces: 2, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        style: {
-                          borderRadius: 16
-                        },
-                        propsForDots: {
-                          r: "6",
-                          strokeWidth: "2",
-                          stroke: "#ffa726"
-                        }
-                      }
-                }
-                accessor={"population"}
-                backgroundColor={"transparent"}
-                paddingLeft={"15"}
-                center={[10, 50]}
-                absolute
-            />
+  const Navigation = useNavigation();
+const Setting = () => Navigation.navigate("SettingD");
+const Home = () => Navigation.navigate("HomeDoctor");
+const Profile = () => Navigation.navigate("ProfileD");
+const Map = () => Navigation.navigate("Dashboard");
+  return (
+    <View>
+      <View style={{height:'91.5%'}}>
+        
+        <View
+          style={{ flexDirection: 'row', marginBottom: 50, backgroundColor: '#56ADE7', paddingTop: 7, paddingBottom: 7 }}
+        >
+          <Text style={{ marginLeft: 60, fontWeight: 'bold', fontSize: 25, color: 'white' }}>Statistics</Text>
         </View>
-    )
+<View style={{marginTop:70}}>
+
+        <LineChart
+      
+          data={{
+            labels: ["January", "February", "March", "April", "May", "June"],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                ]
+              }
+            ]
+          }}
+          width={Dimensions.get("window").width} // from react-native
+          height={220}
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#EAEAEA",
+            backgroundGradientFrom: "#DACC96",
+            backgroundGradientTo: "#5800FF",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726"
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+            margin: 20
+          }}
+        />
+        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 16, color: '#502064' }}>Doctors Per Month</Text>
+
+
+        <BarChart
+          data={{
+            labels: ["January", "February", "March", "April", "May", "June"],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                ]
+              }
+            ]
+          }}
+          width={Dimensions.get("window").width - 40} // from react-native
+          height={220}
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#4C0027",
+            backgroundGradientFrom: "#BAFFB4",
+            backgroundGradientTo: "#1572A1",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#4C0027"
+            }
+          }}
+          style={{
+            marginVertical: 10,
+            borderRadius: 16,
+            margin: 20
+          }}
+        />
+        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 16, color: '#219F94' }}>Clients Per Month</Text>
+      </View>
+</View>
+      <NavBarDoc
+        map={Map}
+        setting={Setting}
+        home={Home}
+        profil={Profile}
+      ></NavBarDoc>
+
+
+
+
+    </View>
+  )
 }
 export default Dashboard;
 

@@ -54,7 +54,7 @@ const LocationScreen = () => {
             speciality: speciality,
         }
         fetch(
-            'http://192.168.1.105:8080/Mobile%20API/getLocalisations.php',
+            'http://192.168.1.127:8080/Mobile%20API/getLocalisations.php',
             {
                 method: 'POST',
                 headers: headers,
@@ -94,10 +94,10 @@ const LocationScreen = () => {
             { timeout: 20000, maximumAge: 1000 }
         );
 
-        fetch('http://192.168.1.105:8080/Mobile%20API/getSpecialities.php')
+        fetch('http://192.168.1.127:8080/Mobile%20API/getSpecialities.php')
             .then(res => res.text())
             .then(response => setSpecialities(response.split(',')))
-            .catch(err => console.warn(err))
+            .catch(err => console.log(err))
 
 
     }, [])
@@ -149,7 +149,7 @@ const LocationScreen = () => {
     }
 
   
-    const Profile = () => navigation.navigate("Profile");
+    const Profile = () => Navigation.navigate("Profile");
 
 
     const _renderItem = ({ item }) => {

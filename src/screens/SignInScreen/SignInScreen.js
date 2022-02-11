@@ -36,8 +36,8 @@ const SignInScreen = () => {
                 password: password
             }
             fetch(
-                //'http://192.168.1.105:808080/Mobile%20API/login.php',
-                'http://192.168.1.105:8080/Mobile%20API/login.php',
+                //'http://192.168.1.127:808080/Mobile%20API/login.php',
+                'http://192.168.1.127:8080/Mobile%20API/login.php',
                 {
                     method: 'POST',
                     headers: headers,
@@ -82,7 +82,7 @@ const SignInScreen = () => {
                 if(userDataParsed.role==='client')
                 Navigation.navigate("HomeClient");
                 else if(userDataParsed.role==='doctor')
-                Navigation.navigate("DoctorHome");
+                Navigation.navigate("HomeDoctor");
                 else if(userDataParsed.role==='admin')
                 Navigation.navigate("AdminHome");
             }else{

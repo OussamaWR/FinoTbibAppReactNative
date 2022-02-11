@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card, Title, Paragraph, Button, Searchbar } from 'react-native-paper';
 
 
+
 const HomeBuisness = () => {  
 
  
@@ -27,7 +28,7 @@ const HomeBuisness = () => {
 
     useEffect( () => {
         fetch(
-            'http://192.168.1.105:8080/Mobile%20API/getReviews.php',
+            'http://192.168.1.127:8080/Mobile%20API/getReviews.php',
             {
                 method: 'POST',
                 headers: {
@@ -47,8 +48,9 @@ const HomeBuisness = () => {
     }, [reviewData])
 
     const Setting = () => Navigation.navigate("SettingD");
-
+    const home =()=>Navigation.navigate("HomeDoctor");
     const Profile = () => Navigation.navigate("ProfileD");
+    const Map = () => Navigation.navigate("Dashboard");
 
     return (
         <View>
@@ -91,6 +93,7 @@ const HomeBuisness = () => {
                     map={Map}
                     setting={Setting}
                     profil={Profile}
+                    home={home}
                 ></NavBarDoc>
             </View>
         </View>
